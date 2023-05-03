@@ -1,3 +1,11 @@
+CREATE TABLE `usuarios` (
+    `id` int(50) PRIMARY KEY AUTO_INCREMENT,
+    `nombre_completo` varchar(50) NOT NULL,
+    `correo` varchar(50) NOT NULL,
+    `usuario` varchar(50) NOT NULL,
+    `contraseña` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 CREATE TABLE IF NOT EXISTS pais(
     idPais INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     codigo CHARACTER(2),
@@ -55,7 +63,7 @@ CREATE TABLE IF NOT EXISTS personaje(
 CREATE TABLE IF NOT EXISTS espacioUrbano(
     id INT PRIMARY KEY AUTO_INCREMENT,
     espacioUrbNom TEXT NOT NULL,
-    periodoConstruc DATE NOT NULL,
+    periodoConstruc TEXT NOT NULL,
     funcion TEXT NOT NULL,
     idArquitecto INT,
     idUbicacion INT NOT NULL,
@@ -70,13 +78,20 @@ CREATE TABLE IF NOT EXISTS espacioUrbano(
 
 CREATE TABLE IF NOT EXISTS descripUrbano(
     id INT PRIMARY KEY AUTO_INCREMENT,
+    idEspacioUrb INT NOT NULL,
     planUrbanistico TEXT,
     caracteristicas TEXT,
     orientacion VARCHAR(500),
     dimensiones VARCHAR(250),
     secciones TEXT,
     elementos TEXT,
-    tiposEdifRodeando TEXT
+    tiposEdifRodeando TEXT,
+    FOREIGN KEY (idEspacioUrb) REFERENCES espacioUrbano(id)
+)ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS generos(
+    idGenero INT PRIMARY KEY AUTO_INCREMENT,
+    nombreGenero VARCHAR(35) NOT NULL
 )ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS edificio(
@@ -88,23 +103,56 @@ CREATE TABLE IF NOT EXISTS edificio(
     idArquitecto INT,
     idUbicacion int NOT NULL,
     contextoHistorico TEXT NOT NULL,
-    descripEdif_idDescripEdif INT NOT NULL,
+    concepto TEXT,
+    -- Plantas son imagenes
+    -- Fachadas y ornamentos son imagenes
     corrienteEst TEXT,
     materialYSistem TEXT,
     contextoUrbano TEXT,
     transformaciones TEXT,
     FOREIGN KEY (idArquitecto) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT,
-    FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT
+    FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT,
+    FOREIGN KEY (idGeneroEdif) REFERENCES generos(idGenero) ON DELETE RESTRICT
+)ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS imagenesEdificios(
+    idImagen INT PRIMARY KEY AUTO_INCREMENT,
+    idSeccion CHARACTER(2),
+    idEdificio INT NOT NULL,
+    imagen LONGBLOB NOT NULL,
+    FOREIGN KEY (idEdificio) REFERENCES edificio(idEdificio) ON DELETE RESTRICT
 );
 
-CREATE TABLE IF NOT EXISTS descripEdif(
+CREATE TABLE IF NOT EXISTS imagenesEspacios(
+    idImagen INT PRIMARY KEY AUTO_INCREMENT,
+    idSeccion CHARACTER(2),
+    idEspacio INT NOT NULL,
+    imagen LONGBLOB NOT NULL,
+    FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT
+)ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS imagenesBiografias(
+    idImagen INT PRIMARY KEY AUTO_INCREMENT,
+    idPersonaje INT NOT NULL,
+    imagen LONGBLOB NOT NULL,
+    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
+)ENGINE = INNODB;
+
+CREATE TABLE IF NOT EXISTS arquitectosEdificio(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    concepto TEXT,
-    plantas TEXT,
-    fachadas VARCHAR(500),
-    dimensiones VARCHAR(250)
-);
+    idEdificio INT NOT NULL,
+    idPersonaje INT NOT NULL,
+    FOREIGN KEY (idEdificio) REFERENCES edificio(idEdificio) ON DELETE RESTRICT,
+    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
+)ENGINE = INNODB;
 
+CREATE TABLE IF NOT EXISTS arquitectosEspacio(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    idEspacioUrb INT NOT NULL,
+    idPersonaje INT NOT NULL,
+    FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT,
+    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
+)ENGINE = INNODB;
 
 -- CREATE TABLE IF NOT EXISTS obra(
 --     idObra INT AUTO_INCREMENT NOT NULL,

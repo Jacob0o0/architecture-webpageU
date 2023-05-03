@@ -15,31 +15,37 @@
         <a href="formulario.php">Formulario</a>
     </div>
 
+    <!-- AÑADIR EDIFICIOS -->
     <div class="container">
         <h2>Añadir Edificación</h2>
         <form method="POST">
             Nombre: <input type="text" name="nombre"> <br>
             Genero Edificio: <br>
             Uso Actual: <br>
-            <textarea id="usoActual" name="usoActual" rows="5" cols="50"></textarea> <br>
-            Fecha de Construcción: <input type="date" name="fechaConstruc"> <br>
-            Arquitecto: <br>
-            <select name='arquitectos'>
+            <textarea id="usoActual" name="usoActual" rows="5" cols="50" placeholder="ssssssss"></textarea> <br>
+            Fecha de Construcción: <input type="date" 
+            name="fechaConstruc"> <br>
+            
+            <!-- Arquitecto(s) o Ingeniero(s): <br> -->
+            <!-- <select name='arquitectos'>
                 <option value="">Seleccione una opción.</option>
                 <?php 
-                    require 'backend/conexion.php';
+                    // require 'backend/conexion.php';
 
-                    $arquis = mysqli_query($conexion, "SELECT idPersonaje, nomPer, apellido FROM personaje");
+                    // $arquis = mysqli_query($conexion, "SELECT idPersonaje, nomPer, apellido FROM personaje");
 
-                    if (mysqli_num_rows($arquis) > 0) {
-                        while ($fila = mysqli_fetch_assoc($arquis)) {
-                        echo "<option value='" . $fila["idPersonaje"] . "'>" . $fila["nomPer"] .' '. $fila["apellido"] . "</option>";}
-                    }
-                    else {
-                        echo "Error con la conexión.";
-                    }
+                    // if (mysqli_num_rows($arquis) > 0) {
+                    //     while ($fila = mysqli_fetch_assoc($arquis)) {
+                    //     echo "<option value='" . $fila["idPersonaje"] . "'>" . $fila["nomPer"] .' '. $fila["apellido"] . "</option>";}
+                    // }
+                    // else {
+                    //     echo "Error con la conexión.";
+                    // }
                 ?>
             </select> <br>
+            <button id="botonAgregarSelect">Agregar Personaje.</button> <br>
+            <div id="contenedorSelect"></div> -->
+            <!-- SECCION ELIMINADA PORQUE SE ASOCIARÁN LOS PERSONAJES EN OTRO APARTADO -->
 
             <div class="container" style="background-color: cornsilk;">
                 <h3>Ubicación:</h3>
@@ -49,6 +55,8 @@
                     <select name='estados' onchange='getMunicipios(this.value)'>
                         <option value="">Seleccione una opción.</option>
                         <?php 
+                            require 'backend/conexion.php';
+
                             $estados = mysqli_query($conexion, "SELECT nukidestado, chd_estado FROM estado");
 
                             if (mysqli_num_rows($estados) > 0) {
@@ -75,6 +83,8 @@
 
             <div class="container" style="background-color: cornsilk;">
                 <h3>Descripcion del Edificio</h3>
+                Concepto: <br>
+                <textarea id="concepto" name="concepto" rows="5" cols="50"></textarea> <br>
             </div>
 
             Corriente Estilística: <br>
@@ -86,18 +96,95 @@
             Contexto Urbano: <br>
             <textarea id="contextUrb" name="contextUrb" rows="5" cols="50"></textarea> <br>
 
-            Transformaciones: <br>
+            Transformaciones del espacio: <br>
             <textarea id="transform" name="transform" rows="5" cols="50"></textarea> <br>
         </form>
     </div>
+    <!--  -->
 
+    <!-- AÑADIR ESPACIOS URBANOS -->
     <div class="container">
         <h2>Añadir Espacio Urbano</h2>
+        <form method="POST">
+            Nombre: <input type="text" name="nombre"> <br>
+
+            Periodo de Construcción: <br>
+            <textarea id="periodoConstruc" name="periodoConstruc" rows="5" cols="50" placeholder="Inserte texto aquí..."></textarea> <br>
+
+            Función: <br>
+            <textarea id="funcion" name="funcion" rows="5" cols="50" placeholder="Inserte texto aquí..."></textarea> <br>
+
+            <div class="container" style="background-color: cornsilk;">
+                <h3>Ubicación:</h3>
+                URL dirección en Google Maps: <input type="text" name="urlUbi"> <br>
+                Calle: <input type="text" name="calle"> <br>
+                Estado:
+                    <select name='estados' onchange='getMunicipios(this.value)'>
+                        <option value="">Seleccione una opción.</option>
+                        <?php 
+                            require 'backend/conexion.php';
+
+                            $estados = mysqli_query($conexion, "SELECT nukidestado, chd_estado FROM estado");
+
+                            if (mysqli_num_rows($estados) > 0) {
+                                while ($fila = mysqli_fetch_assoc($estados)) {
+                                echo "<option value='" . $fila["nukidestado"] . "'>" . $fila["chd_estado"] ."</option>";}
+                            }
+                            else {
+                                echo "Error con la conexión.";
+                            }
+                        ?>
+                    </select> <br>
+                Municipio:
+                <select name='municipios' onchange='getColonias(this.value)' id='municipios'>
+                    <option value="">Seleccione una opción.</option>
+                </select> <br>
+                Colonia:
+                <select name="colonias" id="colonias">
+                    <option value="">Seleccione una opción.</option>
+                </select>
+            </div>
+
+            Contexto Histórico: <br>
+            <textarea id="contexto" name="contexto" rows="5" cols="50"></textarea> <br>
+
+            <div class="container" style="background-color: cornsilk;">
+                <h3>Descripcion del Edificio</h3>
+                Plan Urbanistico: <br>
+                <textarea id="plan" name="plan" rows="5" cols="50"></textarea> <br>
+                Características: <br>
+                <textarea id="caracteristicas" name="caracteristicas" rows="5" cols="50"></textarea> <br>
+                Orientación: <br>
+                <textarea id="orientacion" name="orientacion" rows="5" cols="50"></textarea> <br>
+                Dimensiones: <br>
+                <textarea id="dimensiones" name="dimensiones" rows="5" cols="50"></textarea> <br>
+                Secciones: <br>
+                <textarea id="secciones" name="secciones" rows="5" cols="50"></textarea> <br>
+                Elementos de la imagen urbana: <br>
+                <textarea id="elementos" name="elementos" rows="5" cols="50"></textarea> <br>
+                Tipos de edificaciones que rodean el espacio urbano: <br>
+                <textarea id="tiposEdif" name="tiposEdif" rows="5" cols="50"></textarea> <br>
+            </div>
+
+            Transformaciones del espacio: <br>
+            <textarea id="transform" name="transform" rows="5" cols="50"></textarea> <br>
+
+            Principios del diseño: <br>
+            <textarea id="principiosDis" name="principiosDis" rows="5" cols="50"></textarea> <br>
+
+            Importancia del espacio urbano: <br>
+            <textarea id="importancia" name="importancia" rows="5" cols="50"></textarea> <br>
+
+        </form>
     </div>
 
+    <!-- AÑADIR PERSONAJES -->
     <div class="container">
-        <h2>Añadir Arquitecto</h2>
-        <form method="POST">
+        <h2>Añadir Arquitecto o Ingeniero</h2>
+        <form action="backend/subir_personaje.php" method="POST">
+            <div id="mensaje-exito" style="display: none;">
+                <p>El registro se ha subido exitosamente a la base de datos.</p>
+            </div>
             Nombre: <input type="text" name="nombre"> <br>
             Primer Apellido: <input type="text" name="apellido1"> <br>
             Segundo Apellido: <input type="text" name="apellido2"> <br>
@@ -122,33 +209,16 @@
             Información: <br>
             <textarea id="informacion" name="informacion" rows="5" cols="50"></textarea> <br>
 
-            <input type="submit" name="subirArqui" value="Subir Arquitecto">
+            <input type="submit" name="subirArqui" value="Subir Personaje">
 
         </form>
     </div>
 
-    <!-- <script>
-        document.getElementById("estados").addEventListener("change", function() {
-            var estado_id = this.value;
-            var municipios_select = document.getElementById("municipios");
+    <div class="footer footer-J">
+        Pie de página
+    </div>
 
-            document.getElementById("estados").addEventListener("change", function() {
-                var estado_id = this.value;
-                var municipios_select = document.getElementById("municipios");
-
-                // Realizar petición AJAX para obtener municipios del estado seleccionado
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "get_municipios.php?estado_id=" + estado_id, true);
-                xhr.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                        // Actualizar select de municipios con las opciones recibidas
-                        municipios_select.innerHTML = this.responseText;
-                    }
-                };
-                xhr.send();
-                });
-        });
-    </script> -->
+    <!-- JAVASCRIPT -->
     <script>
     function getMunicipios(estadoId) {
         // crea una instancia del objeto XMLHttpRequest
@@ -189,32 +259,14 @@
         // envía la solicitud AJAX
         xhr.send();
     }
+
+    // Obtener el valor de éxito en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const exito = urlParams.get('exito');
+    // Mostrar el mensaje de éxito si se encuentra el valor en la URL
+    if (exito) {
+        document.getElementById('mensaje-exito').style.display = 'block';
+    }
 </script>
 </body>
 </html>
-
-<?php
-    if (isset($_POST['subirArqui'])){
-        // Establecer la conexión a la base de datos
-        require 'backend/conexion.php';
-
-        // Escapar los datos POST
-        $nombre = mysqli_real_escape_string($conexion, $_POST['nombre']);
-        $apellidoUno = mysqli_real_escape_string($conexion, $_POST['apellido1']);
-        $apellidoDos = mysqli_real_escape_string($conexion, $_POST['apellido2']);
-        $nacimiento = mysqli_real_escape_string($conexion, $_POST['nacimiento']);
-        $pais = mysqli_real_escape_string($conexion, $_POST['paises']);
-        $informacion = mysqli_real_escape_string($conexion, $_POST['informacion']);
-
-        // Construir la consulta SQL utilizando los valores escapados
-        $sql = "INSERT INTO personaje (nomPer, apellido, apellido2, fechaNac, idPais, informacion) 
-                VALUES ('$nombre', '$apellidoUno', '$apellidoDos', '$nacimiento', '$pais', '$informacion')";
-
-        // Ejecutar la consulta SQL
-        if(mysqli_query($conexion, $sql)) {
-            echo "El registro se ha subido exitosamente a la base de datos.";
-        } else {
-            echo "Error al subir el registro a la base de datos: " . mysqli_error($conexion);
-        }
-    }
-?>

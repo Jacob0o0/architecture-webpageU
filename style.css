@@ -1,5 +1,6 @@
 body {
-  background-color: #965fd4;
+  /* background-color: #dfdce3; */
+  background-color: #272744;
 
   align-items: center;
   justify-content: center;
@@ -9,8 +10,9 @@ body {
 }
 
 .nav-bar {
-  background-color: #3f6d4e;
-  border-radius: 50px;
+  /* background-color: #4abdac; */
+  background-color: #c69fa5;
+  border-radius: 10px;
   display: flex;
 
   margin: 10px 0 10px 0;
@@ -22,7 +24,8 @@ body {
 }
 
 .main-image {
-  background-color: #8bd450;
+  /* background-color: #fc4a1a; */
+  background-color: #494d73;
   display: flex;
 
   margin: 0;
@@ -37,7 +40,8 @@ body {
 }
 
 .container-section {
-  background-color: #3d314a;
+  /* background-color: #4abdac; */
+  background-color: #8b6d9c;
   border-color: #1d1a2f;
   display: flex;
   flex-direction: column;
@@ -45,7 +49,7 @@ body {
   margin: 10px 0 10px 0;
   height: 500px;
   max-width: 100vw;
-  border-radius: 50px;
+  border-radius: 10px;
   align-items: center;
   text-align: center;
   align-content: center;
@@ -53,7 +57,8 @@ body {
 }
 
 .footer-J {
-  background-color: #8bd450;
+  /* background-color: #f7b733; */
+  background-color: #494d7e;
 
   margin: 0;
   height: 50vh;
@@ -657,8 +662,8 @@ pre code {
 
 .container {
   width: 100%;
-  background-color: #734f9a;
-  border-radius: 50px;
+  background-color: #494d7e;
+  border-radius: 10px;
 
   padding-right: 15px;
   padding-left: 15px;

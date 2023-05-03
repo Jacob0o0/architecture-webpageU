@@ -11,7 +11,7 @@
     <div class="nav-bar">Barra navegación
         <a href="index.php">Inicio</a>
         <a href="edificios.php">Edificios</a>
-        <a href="formulario.php">Formulario</a>
+        <a href="login.php">Login</a>
     </div>
 
     <div class="main-image">IMAGEN PRINCIPAL</div>
