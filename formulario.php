@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="style.css">
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -234,6 +235,49 @@
         </form>
     </div>
 
+    <!-- AÑADIR IMAGENES -->
+    <div class="container">
+        <h2>Añadir Imagenes</h2>
+        <form action="procesar.php" method="post" enctype="multipart/form-data">
+            <label for="imagen">Selecciona una imagen:</label> <br>
+            <input type="file" id="imagen" name="imagen"> <br>
+            <select name="campoImagen" id="campoImagen">
+                <option value="">Selecione una opción.</option>
+                <option value="1">Edificio</option>
+                <option value="2">Espacio Urbano</option>
+                <option value="3">Biografía</option>
+            </select> <br>
+            <select name="chus" id="chus">
+                <option value="">Seleccione una opción.</option>
+            </select> <br>
+            <input type="submit" value="Subir imagen">
+        </form>
+    </div>
+
+        <!-- ASOCIAR PERSONAJES CON OBRAS -->
+    <div class="container">
+        <h2>Asociar personajes con obras</h2>
+        Personaje: 
+        <select name="personajeChus" id="personajeChus">
+            <?php 
+                include("backend/get_Biografias.php");
+            ?>
+        </select> <br>
+        Edificación:
+        <select name="edificioChus" id="obraChus">
+            <?php 
+                include("backend/get_Edificios.php");
+            ?>
+        </select> <br>
+        Espacio Urbano:
+        <select name="espaciosChus" id="espaciosChus">
+            <?php 
+                include("backend/get_Espacios.php");
+            ?>
+        </select>
+        <input type="submit" value="Asociar Personajes">
+    </div>
+
     <div class="footer footer-J">
         Pie de página
     </div>
@@ -319,6 +363,32 @@
         // envía la solicitud AJAX
         xhr.send();
     }
+
+    $(document).ready(function() {
+        $('#campoImagen').change(function() {
+            var valor = $(this).val();
+            switch(valor) {
+            case '1':
+                $.get('backend/get_Edificios.php', function(data) {
+                $('#chus').html(data);
+                });
+                break;
+            case '2':
+                $.get('backend/get_Espacios.php', function(data) {
+                $('#chus').html(data);
+                });
+                break;
+            case '3':
+                $.get('backend/get_Biografias.php', function(data) {
+                $('#chus').html(data);
+                });
+                break;
+            default:
+                $('#chus').html('<option value="">Seleccione una opción.</option>');
+                break;
+            }
+        });
+    });
 </script>
 </body>
 </html>
