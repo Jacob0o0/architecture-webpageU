@@ -1,6 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  font-family: 'Roboto', sans-serif;
+}
+
 body {
   /* background-color: #dfdce3; */
-  background-color: #272744;
+  background-color: #eef3fb;
 
   align-items: center;
   justify-content: center;
@@ -11,11 +18,12 @@ body {
 
 .nav-bar {
   /* background-color: #4abdac; */
-  background-color: #c69fa5;
-  border-radius: 10px;
+  /* background-color: #c69fa5; */
+  background-color: #0078d2;
+  /* border-radius: 10px; */
   display: flex;
 
-  margin: 10px 0 10px 0;
+  /* margin: 10px 0 10px 0; */
   height: 50px;
   width: 100%;
   text-align: center;
@@ -25,18 +33,19 @@ body {
 
 .main-image {
   /* background-color: #fc4a1a; */
-  background-color: #494d73;
+  background-color: #d8d7d7;
+  background-image: url(assets/images/main-index.jpg);
+  background-size: cover;
+  background-position: center center;
   display: flex;
 
   margin: 0;
-  height: 50vh;
+  height: 40vw;
   width: 100%;
   align-items: center;
   text-align: center;
   align-content: center;
   justify-content: center;
-
-  min-height: 300px;
 }
 
 .container-section {
@@ -54,6 +63,22 @@ body {
   text-align: center;
   align-content: center;
   justify-content: center;
+}
+
+.container-texto {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  text-align: center;
+  text-align: justify;
+
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+.caption-J {
+  color: #4d4d4d;
 }
 
 .footer-J {
@@ -662,13 +687,22 @@ pre code {
 
 .container {
   width: 100%;
-  background-color: #494d7e;
+  background-color: #d8d7d7;
   border-radius: 10px;
 
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px;
+  padding-left: 15px; */
   margin-right: auto;
   margin-left: auto;
+
+  /* MINE */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
 }
 
 @media (min-width: 576px) {
@@ -711,6 +745,8 @@ pre code {
   flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
+
+  /* MINE */
 }
 
 .no-gutters {

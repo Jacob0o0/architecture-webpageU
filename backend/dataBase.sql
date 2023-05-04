@@ -1,4 +1,4 @@
-CREATE TABLE `usuarios` (
+CREATE TABLE usuarios(
     `id` int(50) PRIMARY KEY AUTO_INCREMENT,
     `nombre_completo` varchar(50) NOT NULL,
     `correo` varchar(50) NOT NULL,
@@ -65,28 +65,25 @@ CREATE TABLE IF NOT EXISTS espacioUrbano(
     espacioUrbNom TEXT NOT NULL,
     periodoConstruc TEXT NOT NULL,
     funcion TEXT NOT NULL,
-    idArquitecto INT,
     idUbicacion INT NOT NULL,
     contextoHistorico TEXT NOT NULL,
     descripUrb_idDescripUrb  INT NOT NULL,
     transformaciones TEXT NOT NULL,
     principiosDiseño TEXT NOT NULL,
     importancia TEXT,
-    FOREIGN KEY (idArquitecto) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT,
     FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT
 )ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS descripUrbano(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    idEspacioUrb INT NOT NULL,
+    nombreEspacio TEXT NOT NULL,
     planUrbanistico TEXT,
     caracteristicas TEXT,
     orientacion VARCHAR(500),
     dimensiones VARCHAR(250),
     secciones TEXT,
     elementos TEXT,
-    tiposEdifRodeando TEXT,
-    FOREIGN KEY (idEspacioUrb) REFERENCES espacioUrbano(id)
+    tiposEdifRodeando TEXT
 )ENGINE = INNODB;
 
 CREATE TABLE IF NOT EXISTS generos(
@@ -100,7 +97,6 @@ CREATE TABLE IF NOT EXISTS edificio(
     idGeneroEdif INT NOT NULL,
     usoActual TEXT,
     fechaConstruc DATE,
-    idArquitecto INT,
     idUbicacion int NOT NULL,
     contextoHistorico TEXT NOT NULL,
     concepto TEXT,
@@ -110,7 +106,6 @@ CREATE TABLE IF NOT EXISTS edificio(
     materialYSistem TEXT,
     contextoUrbano TEXT,
     transformaciones TEXT,
-    FOREIGN KEY (idArquitecto) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT,
     FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT,
     FOREIGN KEY (idGeneroEdif) REFERENCES generos(idGenero) ON DELETE RESTRICT
 )ENGINE = INNODB;
@@ -153,6 +148,10 @@ CREATE TABLE IF NOT EXISTS arquitectosEspacio(
     FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT,
     FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
 )ENGINE = INNODB;
+
+ALTER TABLE edificio add aprobado BOOLEAN NOT NULL;
+ALTER TABLE espacioUrbano add aprobado BOOLEAN NOT NULL;
+ALTER TABLE personaje add aprobado BOOLEAN NOT NULL;
 
 -- CREATE TABLE IF NOT EXISTS obra(
 --     idObra INT AUTO_INCREMENT NOT NULL,
