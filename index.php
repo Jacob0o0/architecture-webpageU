@@ -56,63 +56,109 @@
 
     <div class="container">
         <h2>Container de Urbanismo</h2>
-        <?php 
+        <div class="row" style="align-items: center;">
+            <?php 
                 require 'backend/conexion.php';
-                $espacio = mysqli_query($conexion, "SELECT * FROM espacioUrbano");
+                // Consulta para obtener los datos del edificio y su imagen
+                $sql = "SELECT e.id, e.espacioUrbNom, i.imagen FROM espacioUrbano e
+                INNER JOIN imagenesObras i ON e.id = i.idEspacio
+                WHERE i.idSeccion = 'MN'";
 
-                while ($filaEspacio = mysqli_fetch_assoc($espacio)) {
+                $resultado = $conexion->query($sql);
+
+                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                while ($filaEspacio = $resultado->fetch_assoc()) {
+                    $idEspacio = $filaEspacio['id'];
                     $nombreEspacio = $filaEspacio['espacioUrbNom'];
-                    $periodo = $filaEspacio['periodoConstruc'];
-                
-                    echo"<div class='card'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>$nombreEspacio</h5>
-                                <p class='card-text'>$periodo</p>
-                            </div>
-                        </div>";
+                    $imagenEspacio = base64_encode($filaEspacio['imagen']);
+
+                    // Generar el card HTML con el nombre y la imagen del edificio
+                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                    echo '<div class="card">';
+                    echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
+                    echo '<form action="edificios.php" method="post">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $nombreEspacio . '</h5>';
+                    echo '<input type="hidden" name="id_edificio" value="' . $idEspacio . '">';
+                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                    echo '</div>';
+                    echo '</form>';
+                    echo '</div>';
+                    echo '</div>';
                 }
-        ?>
+            ?>
+        </div>
     </div>
 
     <div class="container">
         <h2>Container de Edificios</h2>
-        <?php 
+        <div class="row" style="align-items: center;">
+            <?php 
                 require 'backend/conexion.php';
-                $edificio = mysqli_query($conexion, "SELECT * FROM edificio");
+                // Consulta para obtener los datos del edificio y su imagen
+                $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
+                INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
+                WHERE i.idSeccion = 'MN'";
 
-                while ($filaEdif = mysqli_fetch_assoc($edificio)) {
+                $resultado = $conexion->query($sql);
+
+                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                while ($filaEdif = $resultado->fetch_assoc()) {
+                    $idEdif = $filaEdif['idEdificio'];
                     $nombreEdif = $filaEdif['nombre'];
-                    $contextoH = $filaEdif['contextoHistorico'];
-                
-                    echo"<div class='card'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>$nombreEdif</h5>
-                                <p class='card-text'>$contextoH</p>
-                            </div>
-                        </div>";
+                    $imagenEdif = base64_encode($filaEdif['imagen']);
+
+                    // Generar el card HTML con el nombre y la imagen del edificio
+                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                    echo '<div class="card">';
+                    echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
+                    echo '<form action="edificios.php" method="post">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $nombreEdif . '</h5>';
+                    echo '<input type="hidden" name="id_edificio" value="' . $idEdif . '">';
+                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                    echo '</div>';
+                    echo '</form>';
+                    echo '</div>';
+                    echo '</div>';
                 }
             ?>
+        </div>
     </div>
 
     <div class="container">
         <h2>Container de Biografias</h2>
-        <?php 
-            require 'backend/conexion.php';
-            $personaje = mysqli_query($conexion, "SELECT * FROM personaje");
+        <div class="row" style="align-items: center;">
+            <?php 
+                require 'backend/conexion.php';
+                // Consulta para obtener los datos del edificio y su imagen
+                $sql = "SELECT p.idPersonaje, p.nomPer, i.imagen FROM personaje p
+                INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje";
 
-            while ($fila = mysqli_fetch_assoc($personaje)) {
-                $nombrePer = $fila['nomPer'];
-                $apellido = $fila['apellido'];
-                $informacion = $fila['informacion'];
-            
-                echo"<div class='card'>
-                        <div class='card-body'>
-                            <h5 class='card-title'>$nombrePer $apellido</h5>
-                            <p class='card-text'>$informacion</p>
-                        </div>
-                    </div>";
-            }
-        ?>
+                $resultado = $conexion->query($sql);
+
+                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                while ($filaPersonaje = $resultado->fetch_assoc()) {
+                    $idPersonaje = $filaPersonaje['idPersonaje'];
+                    $nombrePersonaje = $filaPersonaje['nomPer'];
+                    $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
+
+                    // Generar el card HTML con el nombre y la imagen del edificio
+                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                    echo '<div class="card">';
+                    echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
+                    echo '<form action="edificios.php" method="post">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
+                    echo '<input type="hidden" name="id_edificio" value="' . $idPersonaje . '">';
+                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                    echo '</div>';
+                    echo '</form>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+            ?>
+        </div>
     </div>
 
     <div class="footer footer-J">

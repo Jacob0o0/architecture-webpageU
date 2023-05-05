@@ -5,10 +5,10 @@
         // Establecer la conexión a la base de datos
         require 'conexion.php';
 
-        if (empty($_POST['nombreEU']) || empty($_POST['urlUbiEU']) || empty($_POST['calleEU']) || empty($_POST['coloniasEU']) || empty($_POST['municipiosEU']) || empty($_POST['estadosEU'])){
+        if (empty($_POST['nombreEU']) || empty($_POST['urlUbiEU']) || empty($_POST['calleEU']) || empty($_POST['coloniasEU']) || empty($_POST['municipiosEU']) || empty($_POST['estadosEU']) || empty($_FILES['imagenEspacio']['name'])){
             echo '
             <script>
-                alert("Existen campos vacíos en el formulario. Por favor, complete todos los campos.");
+                alert("Existen campos vacíos en el formulario. Por favor, complete todos los campos. AQUIIIII");
                 window.location= "../formulario.php";
             </script>  
             ';
@@ -18,6 +18,20 @@
             echo '
             <script>
                 alert("Existen campos vacíos en el formulario. Por favor, complete todos los campos.");
+                window.location= "../formulario.php";
+            </script>  
+            ';
+            exit();
+        }
+
+        // Verificar que el archivo tenga un formato válido
+        $permitidos = array("image/jpeg", "image/png", "image/gif");
+        $tipo = $_FILES['imagenEspacio']['type'];
+
+        if (!in_array($tipo, $permitidos)) {
+            echo '
+            <script>
+                alert("¡El tipo de archivo de la imagen no está permitido!");
                 window.location= "../formulario.php";
             </script>  
             ';
@@ -71,12 +85,44 @@
                 VALUES ('$nombre', '$periodoConstruc', '$funcion', '$idUbi', '$contextoH', $idDescripUrb, '$transform', '$principiosDis', '$importancia')";
 
                 if(mysqli_query($conexion, $sql)){
-                    echo '
-                    <script>
-                        alert("Edificio subido con éxito.");
-                        window.location= "../formulario.php";
-                    </script>  
-                    ';
+                    $getIDespacio = mysqli_query($conexion, "SELECT*FROM espacioUrbano WHERE espacioUrbNom='$nombre' ");
+                        
+                    $filaEspacio = $getIDespacio->fetch_assoc();
+                    $idEspacio = $filaEspacio['id'];
+
+                    // Obtener los datos de la imagen
+                    $nombreImagen = $_FILES['imagenEspacio']['name'];
+                    $tipoImagen = $_FILES['imagenEspacio']['type'];
+                    $tamañoImagen = $_FILES['imagenEspacio']['size'];
+                    $tempImagen = $_FILES['imagenEspacio']['tmp_name'];
+                    $idSeccion = "MN"; // main image
+
+                    // Escapar los datos necesarios para prevenir inyección SQL
+                    $nombreImagen = mysqli_real_escape_string($conexion, $nombreImagen);
+                    $tipoImagen = mysqli_real_escape_string($conexion, $tipoImagen);
+                    $tamañoImagen = mysqli_real_escape_string($conexion, $tamañoImagen);
+
+                    // Leer el contenido binario de la imagen
+                    $fp = fopen($tempImagen, 'r');
+                    $contenido = fread($fp, $tamañoImagen);
+                    $contenido = mysqli_real_escape_string($conexion, $contenido);
+                    fclose($fp);
+
+                    // Preparar la consulta SQL para insertar la imagen
+                    $sql = "INSERT INTO imagenesObras (idSeccion, idEspacio, imagen)
+                            VALUES ('$idSeccion', '$idEspacio', '$contenido')";
+
+                    // Ejecutar la consulta SQL
+                    if (mysqli_query($conexion, $sql)) {
+                        echo '
+                        <script>
+                            alert("Espacio Urbano subido con éxito.");
+                            window.location= "../formulario.php";
+                        </script>  
+                        ';
+                    } else {
+                        echo "Error al subir la imagen: " . mysqli_error($conexion);
+                    }
                 } else {
                     echo '
                     <script>
@@ -121,12 +167,44 @@
                         VALUES ('$nombre', '$periodoConstruc', '$funcion', '$idUbi', '$contextoH', $idDescripUrb, '$transform', '$principiosDis', '$importancia')";
 
                         if(mysqli_query($conexion, $sql)){
-                            echo '
-                            <script>
-                                alert("Edificio subido con éxito.");
-                                window.location= "../formulario.php";
-                            </script>  
-                            ';
+                            $getIDespacio = mysqli_query($conexion, "SELECT*FROM espacioUrbano WHERE espacioUrbNom='$nombre' ");
+                        
+                            $filaEspacio = $getIDespacio->fetch_assoc();
+                            $idEspacio = $filaEspacio['id'];
+        
+                            // Obtener los datos de la imagen
+                            $nombreImagen = $_FILES['imagenEspacio']['name'];
+                            $tipoImagen = $_FILES['imagenEspacio']['type'];
+                            $tamañoImagen = $_FILES['imagenEspacio']['size'];
+                            $tempImagen = $_FILES['imagenEspacio']['tmp_name'];
+                            $idSeccion = "MN"; // main image
+        
+                            // Escapar los datos necesarios para prevenir inyección SQL
+                            $nombreImagen = mysqli_real_escape_string($conexion, $nombreImagen);
+                            $tipoImagen = mysqli_real_escape_string($conexion, $tipoImagen);
+                            $tamañoImagen = mysqli_real_escape_string($conexion, $tamañoImagen);
+        
+                            // Leer el contenido binario de la imagen
+                            $fp = fopen($tempImagen, 'r');
+                            $contenido = fread($fp, $tamañoImagen);
+                            $contenido = mysqli_real_escape_string($conexion, $contenido);
+                            fclose($fp);
+        
+                            // Preparar la consulta SQL para insertar la imagen
+                            $sql = "INSERT INTO imagenesObras (idSeccion, idEspacio, imagen)
+                                    VALUES ('$idSeccion', '$idEspacio', '$contenido')";
+        
+                            // Ejecutar la consulta SQL
+                            if (mysqli_query($conexion, $sql)) {
+                                echo '
+                                <script>
+                                    alert("Espacio Urbano subido con éxito.");
+                                    window.location= "../formulario.php";
+                                </script>  
+                                ';
+                            } else {
+                                echo "Error al subir la imagen: " . mysqli_error($conexion);
+                            }
                         } else {
                             echo '
                             <script>

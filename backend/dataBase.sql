@@ -57,6 +57,8 @@ CREATE TABLE IF NOT EXISTS personaje(
     fechaNac DATE,
     idPais INT,
     informacion TEXT NOT NULL,
+    obras TEXT,
+    aprobado BOOLEAN,
     FOREIGN KEY (idPais) REFERENCES pais(idPais) ON DELETE RESTRICT 
 )ENGINE = INNODB;
 
@@ -71,6 +73,7 @@ CREATE TABLE IF NOT EXISTS espacioUrbano(
     transformaciones TEXT NOT NULL,
     principiosDiseño TEXT NOT NULL,
     importancia TEXT,
+    aprobado BOOLEAN,
     FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT
 )ENGINE = INNODB;
 
@@ -106,23 +109,18 @@ CREATE TABLE IF NOT EXISTS edificio(
     materialYSistem TEXT,
     contextoUrbano TEXT,
     transformaciones TEXT,
+    aprobado BOOLEAN,
     FOREIGN KEY (idUbicacion) REFERENCES ubicacion(idUbicacion) ON DELETE RESTRICT,
     FOREIGN KEY (idGeneroEdif) REFERENCES generos(idGenero) ON DELETE RESTRICT
 )ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS imagenesEdificios(
+CREATE TABLE IF NOT EXISTS imagenesObras(
     idImagen INT PRIMARY KEY AUTO_INCREMENT,
     idSeccion CHARACTER(2),
-    idEdificio INT NOT NULL,
+    idEdificio INT,
+    idEspacio INT,
     imagen LONGBLOB NOT NULL,
-    FOREIGN KEY (idEdificio) REFERENCES edificio(idEdificio) ON DELETE RESTRICT
-);
-
-CREATE TABLE IF NOT EXISTS imagenesEspacios(
-    idImagen INT PRIMARY KEY AUTO_INCREMENT,
-    idSeccion CHARACTER(2),
-    idEspacio INT NOT NULL,
-    imagen LONGBLOB NOT NULL,
+    FOREIGN KEY (idEdificio) REFERENCES edificio(idEdificio) ON DELETE RESTRICT,
     FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT
 )ENGINE = INNODB;
 

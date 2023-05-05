@@ -19,6 +19,10 @@
     <div class="main-image">
         <div class="">
             <h1>Imagen del edificio</h1>
+            <?php 
+                $idEdificio = $_POST['id_edificio'];
+                echo $idEdificio;
+            ?>
             <h2>Nombre del edificio</h2>
         </div>
     </div>

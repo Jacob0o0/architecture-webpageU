@@ -22,9 +22,13 @@
     <!-- AÑADIR EDIFICIOS -->
     <div class="container">
         <h2>Añadir Edificación</h2>
-        <form action="backend/subir_edificio.php" method="POST">
+        <form action="backend/subir_edificio.php" method="POST" enctype="multipart/form-data">
             Nombre:* <input type="text" name="nombre"> <br>
+
+            <label for="imagenEdif">Seleccione la imagen principal:*</label> <br>
+            <input type="file" id="imagenEdif" name="imagenEdif"> <br>
             Genero Edificio:* <br>
+
             <select class="form-select" name='generos'>
                 <option value="">Seleccione una opción.</option>
                 <?php 
@@ -127,8 +131,11 @@
     <!-- AÑADIR ESPACIOS URBANOS -->
     <div class="container">
         <h2>Añadir Espacio Urbano</h2>
-        <form action="backend/subir_espacio.php" method="POST">
+        <form action="backend/subir_espacio.php" method="POST" enctype="multipart/form-data">
             Nombre:* <input type="text" name="nombreEU"> <br>
+
+            <label for="imagenEspacio">Seleccione la imagen principal:*</label> <br>
+            <input type="file" id="imagenEspacio" name="imagenEspacio"> <br>
 
             Periodo de Construcción:* <br>
             <textarea id="periodoConstruc" name="periodoConstruc" rows="5" cols="50" placeholder="Inserte texto aquí..."></textarea> <br>
@@ -204,13 +211,14 @@
     <!-- AÑADIR PERSONAJES -->
     <div class="container">
         <h2>Añadir Arquitecto o Ingeniero</h2>
-        <input type="hidden" name="tmstamp" value="<?php echo $_SESSION['timestamp']; ?>">
-        <form action="backend/subir_personaje.php" method="POST">
-            Nombre: <input type="text" name="nombre"> <br>
-            Primer Apellido: <input type="text" name="apellido1"> <br>
+        <form action="backend/subir_personaje.php" method="POST" enctype="multipart/form-data">
+            Nombre:* <input type="text" name="nombre"> <br>
+            Primer Apellido:* <input type="text" name="apellido1"> <br>
             Segundo Apellido: <input type="text" name="apellido2"> <br>
+            <label for="imagenPersonaje">Seleccione la imagen principal:*</label> <br>
+            <input type="file" id="imagenPersonaje" name="imagenPersonaje"> <br>
             Fecha de Nacimiento: <input type="date" name="nacimiento"> <br>
-            País de Origen:
+            País de Origen:*
             <select name='paises'>
                 <option value="">Seleccione una opción.</option>
                 <?php 
@@ -227,8 +235,11 @@
                     }
                 ?>
             </select> <br>
-            Información: <br>
+            Información:* <br>
             <textarea id="informacion" name="informacion" rows="5" cols="50"></textarea> <br>
+
+            Principales obras: <br>
+            <textarea name="obras" id="obras" cols="50" rows="5"></textarea> <br>
 
             <input type="submit" name="subirArqui" value="Subir Personaje">
 
@@ -237,45 +248,56 @@
 
     <!-- AÑADIR IMAGENES -->
     <div class="container">
-        <h2>Añadir Imagenes</h2>
-        <form action="procesar.php" method="post" enctype="multipart/form-data">
-            <label for="imagen">Selecciona una imagen:</label> <br>
+        <h2>Subir Imagenes</h2>
+        <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen">
+            <label for="imagen">Seleccione una imagen:</label>
             <input type="file" id="imagen" name="imagen"> <br>
+            Tipo:
             <select name="campoImagen" id="campoImagen">
                 <option value="">Selecione una opción.</option>
                 <option value="1">Edificio</option>
                 <option value="2">Espacio Urbano</option>
-                <option value="3">Biografía</option>
+                <!-- <option value="3">Biografía</option> -->
             </select> <br>
+            Obra:
             <select name="chus" id="chus">
                 <option value="">Seleccione una opción.</option>
             </select> <br>
-            <input type="submit" value="Subir imagen">
+            Sección:
+            <select name="seccionObra" id="seccionObra">
+                <option value="">Seleccione una opción.</option>
+            </select> <br>
+            <br> <br>
         </form>
+        <div id="formularios"></div>
+        <button onclick="subirImagenes()">Subir todas las imágenes</button>
+        <button onclick="crearForm()">Añadir campos</button>
     </div>
 
-        <!-- ASOCIAR PERSONAJES CON OBRAS -->
+    <!-- ASOCIAR PERSONAJES CON OBRAS -->
     <div class="container">
         <h2>Asociar personajes con obras</h2>
-        Personaje: 
-        <select name="personajeChus" id="personajeChus">
-            <?php 
-                include("backend/get_Biografias.php");
-            ?>
-        </select> <br>
-        Edificación:
-        <select name="edificioChus" id="obraChus">
-            <?php 
-                include("backend/get_Edificios.php");
-            ?>
-        </select> <br>
-        Espacio Urbano:
-        <select name="espaciosChus" id="espaciosChus">
-            <?php 
-                include("backend/get_Espacios.php");
-            ?>
-        </select>
-        <input type="submit" value="Asociar Personajes">
+        <form action="asociar_Personajes.php">
+            Personaje:
+            <select name="personajeChus" id="personajeChus">
+                <?php 
+                    include("backend/get_Biografias.php");
+                ?>
+            </select> <br>
+            Edificación:
+            <select name="edificioChus" id="edificioChus">
+                <?php 
+                    include("backend/get_Edificios.php");
+                ?>
+            </select> <br>
+            Espacio Urbano:
+            <select name="espaciosChus" id="espaciosChus">
+                <?php 
+                    include("backend/get_Espacios.php");
+                ?>
+            </select> <br>
+            <input type="submit" value="Asociar Personaje">
+        </form>
     </div>
 
     <div class="footer footer-J">
@@ -372,23 +394,74 @@
                 $.get('backend/get_Edificios.php', function(data) {
                 $('#chus').html(data);
                 });
+                $('#seccionObra').html('<option value="">Seleccione una opción.</option><option value="1">Plantas arquitectónicas</option><option value="2">Fachadas y ornamentos</option><option value="3">Corriente estilística</option><option value="4">Materiales y sistemas</option><option value="5">Contexto urbano</option><option value="6">Transformaciones</option>');
                 break;
             case '2':
                 $.get('backend/get_Espacios.php', function(data) {
                 $('#chus').html(data);
                 });
+                $('#seccionObra').html('<option value="">Seleccione una opción.</option><option value="1">Características particulares</option><option value="2">Orientación</option><option value="3">Dimensiones</option><option value="4">Secciones</option><option value="5">Elementos de la imagen urbana</option><option value="6">Tipos de edificaciones que la rodean</option><option value="7">Transformaciones</option><option value="8">Principios de diseño</option>');
                 break;
-            case '3':
-                $.get('backend/get_Biografias.php', function(data) {
-                $('#chus').html(data);
-                });
-                break;
+            // case '3':
+            //     $.get('backend/get_Biografias.php', function(data) {
+            //     $('#chus').html(data);
+            //     });
+            //     break;
             default:
                 $('#chus').html('<option value="">Seleccione una opción.</option>');
+                $('#seccionObra').html('<option value="">Seleccione una opción.</option>');
                 break;
             }
         });
     });
+
+    function crearForm() {
+        // Clonar el formulario original
+        var formulario = document.querySelector('#subirImagen').cloneNode(true);
+        
+        // Cambiar el atributo "id" del formulario clonado para que sea único
+        formulario.id = 'subirImagen' + Date.now();
+        
+        // Agregar el formulario clonado al contenedor
+        var contenedor = document.querySelector('#formularios');
+        contenedor.appendChild(formulario);
+    }
+
+    function subirImagenes() {
+    // Obtener todos los formularios clonados
+    var formularios = document.querySelectorAll('form[id^="subirImagen"]');
+    
+    // Iterar sobre cada formulario
+    formularios.forEach(function(formulario) {
+        // Obtener los datos del formulario
+        var imagen = formulario.querySelector('input[type="file"]').files[0];
+        var campoImagen = formulario.querySelector('#campoImagen').value;
+        var chus = formulario.querySelector('#chus').value;
+        var seccionObra = formulario.querySelector('#seccionObra').value;
+        
+        // Crear un objeto FormData para enviar los datos al servidor
+        var formData = new FormData();
+        formData.append('imagen', imagen);
+        formData.append('campoImagen', campoImagen);
+        formData.append('chus', chus);
+        formData.append('seccionObra', seccionObra);
+        
+        // Realizar una solicitud HTTP mediante fetch() para enviar los datos al servidor
+        fetch('subir_imagenes.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(function(response) {
+            // Manejar la respuesta del servidor si es necesario
+            console.log(response);
+        })
+        .catch(function(error) {
+            // Manejar cualquier error que ocurra
+            console.error(error);
+        });
+    });
+    }
+
 </script>
 </body>
 </html>
