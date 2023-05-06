@@ -2,7 +2,6 @@
 require 'conexion.php';
 
 $estadoId = $_GET['estado_id'];
-echo "el valor del id estado es:" . $estadoId;
 
 // consulta la base de datos para obtener los municipios correspondientes al estado
 $municipios = mysqli_query($conexion, "SELECT nukidmunicipio, chd_municipio FROM municipio WHERE nukidestado = '$estadoId'");
