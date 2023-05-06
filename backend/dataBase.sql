@@ -131,20 +131,14 @@ CREATE TABLE IF NOT EXISTS imagenesBiografias(
     FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
 )ENGINE = INNODB;
 
-CREATE TABLE IF NOT EXISTS arquitectosEdificio(
+CREATE TABLE IF NOT EXISTS arquitectosObras(
     id INT PRIMARY KEY AUTO_INCREMENT,
-    idEdificio INT NOT NULL,
     idPersonaje INT NOT NULL,
+    idEdificio INT,
+    idEspacio INT,
+    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT,
     FOREIGN KEY (idEdificio) REFERENCES edificio(idEdificio) ON DELETE RESTRICT,
-    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
-)ENGINE = INNODB;
-
-CREATE TABLE IF NOT EXISTS arquitectosEspacio(
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    idEspacioUrb INT NOT NULL,
-    idPersonaje INT NOT NULL,
-    FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT,
-    FOREIGN KEY (idPersonaje) REFERENCES personaje(idPersonaje) ON DELETE RESTRICT
+    FOREIGN KEY (idEspacio) REFERENCES espacioUrbano(id) ON DELETE RESTRICT
 )ENGINE = INNODB;
 
 ALTER TABLE edificio add aprobado BOOLEAN NOT NULL;

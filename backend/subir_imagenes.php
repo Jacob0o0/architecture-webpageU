@@ -2,7 +2,7 @@
     // Establecer la conexión a la base de datos
     require 'conexion.php';
 
-    if (empty($_POST['campoImagen']) || empty($_POST['chus']) || empty($_POST['seccionObra']) || empty($_FILES['izmagen']['name'])){
+    if (empty($_POST['campoImagen']) || empty($_POST['chus']) || empty($_POST['seccionObra']) || empty($_FILES['imagen']['name'])){
         echo '
         <script>
             alert("¡Existen Campos Vacíos! Por favor, complete todos los campos.");

@@ -248,56 +248,61 @@
 
     <!-- AÑADIR IMAGENES -->
     <div class="container">
-        <h2>Subir Imagenes</h2>
-        <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen">
-            <label for="imagen">Seleccione una imagen:</label>
-            <input type="file" id="imagen" name="imagen"> <br>
-            Tipo:
-            <select name="campoImagen" id="campoImagen">
-                <option value="">Selecione una opción.</option>
-                <option value="1">Edificio</option>
-                <option value="2">Espacio Urbano</option>
-                <!-- <option value="3">Biografía</option> -->
-            </select> <br>
-            Obra:
-            <select name="chus" id="chus">
-                <option value="">Seleccione una opción.</option>
-            </select> <br>
-            Sección:
-            <select name="seccionObra" id="seccionObra">
-                <option value="">Seleccione una opción.</option>
-            </select> <br>
-            <br> <br>
-        </form>
-        <div id="formularios"></div>
-        <button onclick="subirImagenes()">Subir todas las imágenes</button>
-        <button onclick="crearForm()">Añadir campos</button>
+        <h2>Subir Imagenes</h2> <br>
+        <div id="formularios">
+            <button type="button" onclick="subirImagenes()">Subir imágenes</button> <br><br>
+
+            <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen">
+                <label for="imagen">Seleccione una imagen:*</label>
+                <input type="file" id="imagen" name="imagen"> <br>
+                Tipo:*
+                <select name="campoImagen" id="campoImagen" class="campoImagen">
+                    <option value="">Selecione una opción.</option>
+                    <option value="1">Edificio</option>
+                    <option value="2">Espacio Urbano</option>
+                    <!-- <option value="3">Biografía</option> -->
+                </select> <br>
+                Obra:*
+                <select name="chus" id="chus" class="chus">
+                    <option value="">Seleccione una opción.</option>
+                </select> <br>
+                Sección:*
+                <select name="seccionObra" id="seccionObra" class="seccionObra">
+                    <option value="">Seleccione una opción.</option>
+                </select> <br>
+                <br> <br>
+            </form>
+        </div>
+        <button id="btnClonar">Añadir campos</button>
     </div>
 
     <!-- ASOCIAR PERSONAJES CON OBRAS -->
     <div class="container">
         <h2>Asociar personajes con obras</h2>
-        <form action="asociar_Personajes.php">
-            Personaje:
-            <select name="personajeChus" id="personajeChus">
-                <?php 
-                    include("backend/get_Biografias.php");
-                ?>
-            </select> <br>
-            Edificación:
-            <select name="edificioChus" id="edificioChus">
-                <?php 
-                    include("backend/get_Edificios.php");
-                ?>
-            </select> <br>
-            Espacio Urbano:
-            <select name="espaciosChus" id="espaciosChus">
-                <?php 
-                    include("backend/get_Espacios.php");
-                ?>
-            </select> <br>
-            <input type="submit" value="Asociar Personaje">
-        </form>
+        <div id="formulariosObrasPer">
+            <button type="button" onclick="asociarPer()">Asociar personajes</button> <br><br>
+            <form method="post" id="asociarPer">
+                Personaje:
+                <select name="personajeChus" id="personajeChus" class="personajeChus">
+                    <?php 
+                        include("backend/get_Biografias.php");
+                    ?>
+                </select> <br>
+                Edificación:
+                <select name="edificioChus" id="edificioChus" class="edificioChus">
+                    <?php 
+                        include("backend/get_Edificios.php");
+                    ?>
+                </select> <br>
+                Espacio Urbano:
+                <select name="espacioChus" id="espacioChus" class="espacioChus">
+                    <?php 
+                        include("backend/get_Espacios.php");
+                    ?>
+                </select> <br>
+            </form> <br>
+        </div>
+        <button id="btnClonarAsoc">Añadir campos</button>
     </div>
 
     <div class="footer footer-J">
@@ -387,7 +392,10 @@
     }
 
     $(document).ready(function() {
-        $('#campoImagen').change(function() {
+        let contador = 0;
+        let contadorAsoc = 0;
+
+        $(document).on('change', '#campoImagen', function() {
             var valor = $(this).val();
             switch(valor) {
             case '1':
@@ -413,55 +421,200 @@
                 break;
             }
         });
-    });
 
-    function crearForm() {
-        // Clonar el formulario original
-        var formulario = document.querySelector('#subirImagen').cloneNode(true);
-        
-        // Cambiar el atributo "id" del formulario clonado para que sea único
-        formulario.id = 'subirImagen' + Date.now();
-        
-        // Agregar el formulario clonado al contenedor
-        var contenedor = document.querySelector('#formularios');
-        contenedor.appendChild(formulario);
-    }
+        $('#btnClonar').click(function() {
+            contador++;
+            let formulario = `
+                <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen${contador}">
+                    <label for="imagen${contador}">Seleccione una imagen:</label>
+                    <input type="file" id="imagen${contador}" name="imagen${contador}"> <br>
+                    Tipo:
+                    <select name="campoImagen${contador}" id="campoImagen${contador}" class="campoImagen">
+                        <option value="">Selecione una opción.</option>
+                        <option value="1">Edificio</option>
+                        <option value="2">Espacio Urbano</option>
+                    </select> <br>
+                    Obra:
+                    <select name="chus${contador}" id="chus${contador}" class="chus">
+                        <option value="">Seleccione una opción.</option>
+                    </select> <br>
+                    Sección:
+                    <select name="seccionObra${contador}" id="seccionObra${contador}" class="seccionObra">
+                        <option value="">Seleccione una opción.</option>
+                    </select> <br>
+                    <br> <br>
+                </form>
+            `;
+            $('#formularios').append(formulario);
+        });
 
-    function subirImagenes() {
-    // Obtener todos los formularios clonados
-    var formularios = document.querySelectorAll('form[id^="subirImagen"]');
-    
-    // Iterar sobre cada formulario
-    formularios.forEach(function(formulario) {
-        // Obtener los datos del formulario
-        var imagen = formulario.querySelector('input[type="file"]').files[0];
-        var campoImagen = formulario.querySelector('#campoImagen').value;
-        var chus = formulario.querySelector('#chus').value;
-        var seccionObra = formulario.querySelector('#seccionObra').value;
-        
-        // Crear un objeto FormData para enviar los datos al servidor
-        var formData = new FormData();
-        formData.append('imagen', imagen);
-        formData.append('campoImagen', campoImagen);
-        formData.append('chus', chus);
-        formData.append('seccionObra', seccionObra);
-        
-        // Realizar una solicitud HTTP mediante fetch() para enviar los datos al servidor
-        fetch('subir_imagenes.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(function(response) {
-            // Manejar la respuesta del servidor si es necesario
-            console.log(response);
-        })
-        .catch(function(error) {
-            // Manejar cualquier error que ocurra
-            console.error(error);
+        $('#btnClonarAsoc').click(function() {
+            contadorAsoc++;
+            let formularioAsoc = `
+                <form action="asociar_Personajes.php" method="post" id="asociarPer${contadorAsoc}">
+                    Personaje:
+                    <select name="personajeChus" id="personajeChus${contadorAsoc}" class="personajeChus">
+                        <?php 
+                            include("backend/get_Biografias.php");
+                        ?>
+                    </select> <br>
+                    Edificación:
+                    <select name="edificioChus" id="edificioChus${contadorAsoc}" class="edificioChus">
+                        <?php 
+                            include("backend/get_Edificios.php");
+                        ?>
+                    </select> <br>
+                    Espacio Urbano:
+                    <select name="espacioChus" id="espacioChus${contadorAsoc}" class="espacioChus">
+                        <?php 
+                            include("backend/get_Espacios.php");
+                        ?>
+                    </select> <br>
+                </form> <br>
+            `;
+            $('#formulariosObrasPer').append(formularioAsoc);
+        });
+
+        $('#formularios').on('change', '.campoImagen', function() {
+            let valor = $(this).val();
+            let form = $(this).closest('form');
+
+            switch(valor) {
+                case '1':
+                    $.get('backend/get_Edificios.php', function(data) {
+                        form.find('.chus').html(data);
+                    });
+                    form.find('.seccionObra').html('<option value="">Seleccione una opción.</option><option value="1">Plantas arquitectónicas</option><option value="2">Fachadas y ornamentos</option><option value="3">Corriente estilística</option><option value="4">Materiales y sistemas</option><option value="5">Contexto urbano</option><option value="6">Transformaciones</option>');
+                    break;
+                case '2':
+                    $.get('backend/get_Espacios.php', function(data) {
+                        form.find('.chus').html(data);
+                    });
+                    form.find('.seccionObra').html('<option value="">Seleccione una opción.</option><option value="1">Características particulares</option><option value="2">Orientación</option><option value="3">Dimensiones</option><option value="4">Secciones</option><option value="5">Elementos de la imagen urbana</option><option value="6">Tipos de edificaciones que la rodean</option><option value="7">Transformaciones</option><option value="8">Principios de diseño</option>');
+                    break;
+                default:
+                    form.find('.chus').html('<option value="">Seleccione una opción.</option>');
+                    form.find('.seccionObra').html('<option value="">Seleccione una opción.</option>');
+                    break;
+            }
         });
     });
+
+    function subirImagenes() {
+        // Obtener todos los formularios dentro del div con id "formularios"
+        var formularios = document.querySelectorAll('#formularios form[id*="subirImagen"]');
+        // Crear un array para almacenar todas las promesas generadas al enviar los formularios
+        var promesasEnvio = [];
+
+        // Iterar sobre cada formulario
+        formularios.forEach(function(formulario) {
+            // Obtener los datos del formulario
+            var imagen = formulario.querySelector('input[type="file"]').files[0];
+            var campoImagen = formulario.querySelector('.campoImagen').value;
+            var chus = formulario.querySelector('.chus').value;
+            var seccionObra = formulario.querySelector('.seccionObra').value;
+
+            // Comprobar si alguno de los campos está vacío
+            if (!imagen || !campoImagen || !chus || !seccionObra) {
+                alert("¡Existen Campos Vacíos! Por favor, complete todos los campos.");
+                window.location= "formulario.php";
+                return;
+            }
+
+            
+            // Crear un objeto FormData para enviar los datos al servidor
+            var formData = new FormData();
+            formData.append('imagen', imagen);
+            formData.append('campoImagen', campoImagen);
+            formData.append('chus', chus);
+            formData.append('seccionObra', seccionObra);
+            
+            // Realizar una solicitud HTTP mediante fetch() para enviar los datos al servidor
+            var promesaEnvio = fetch('backend/subir_imagenes.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(response) {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(response);
+            })
+            .catch(function(error) {
+                // Manejar cualquier error que ocurra
+                alert("Intentelo de nuevo");
+            });
+
+            // Agregar la promesa al array de promesas
+            promesasEnvio.push(promesaEnvio);
+        });
+
+        // Esperar a que se resuelvan todas las promesas antes de mostrar el mensaje de éxito
+        Promise.all(promesasEnvio)
+        .then(function() {
+            alert('Todas las imágenes se subieron correctamente.');
+            window.location= "formulario.php";
+        })
+        .catch(function(error) {
+            alert('Error al subir las imágenes.');
+            window.location= "formulario.php"
+        });
     }
 
-</script>
+    function asociarPer() {
+        // Obtener todos los formularios dentro del div con id "formularios"
+        var formulariosAsoc = document.querySelectorAll('#formulariosObrasPer form[id*="asociarPer"]');
+        // Crear un array para almacenar todas las promesas generadas al enviar los formulariosAsoc
+        var promesasEnvioAsoc = [];
+
+        // Iterar sobre cada formulario
+        formulariosAsoc.forEach(function(formulario) {
+            // Obtener los datos del formulario
+            var personajeChus = formulario.querySelector('.personajeChus').value;
+            var edificioChus = formulario.querySelector('.edificioChus').value;
+            var espacioChus = formulario.querySelector('.espacioChus').value;
+
+            // Comprobar si alguno de los campos está vacío
+            if (!personajeChus || (!edificioChus && !espacioChus)) {
+                alert("¡Existen Campos Vacíos! Por favor, complete todos los campos.");
+                window.location= "formulario.php";
+                exit();
+            }
+
+            // Crear un objeto FormData para enviar los datos al servidor
+            var formDataAsoc = new FormData();
+            formDataAsoc.append('personajeChus', personajeChus);
+            formDataAsoc.append('edificioChus', edificioChus);
+            formDataAsoc.append('espacioChus', espacioChus);
+            
+            // Realizar una solicitud HTTP mediante fetch() para enviar los datos al servidor
+            var promesaEnvioAsoc = fetch('backend/asociar_Personajes.php', {
+                method: 'POST',
+                body: formDataAsoc
+            })
+            .then(function(response) {
+                // Manejar la respuesta del servidor si es necesario
+                console.log(response);
+            })
+            .catch(function(error) {
+                // Manejar cualquier error que ocurra
+                alert("Intentelo de nuevo");
+            });
+
+            // Agregar la promesa al array de promesas
+            promesasEnvioAsoc.push(promesaEnvioAsoc);
+        });
+
+        // Esperar a que se resuelvan todas las promesas antes de mostrar el mensaje de éxito
+        Promise.all(promesasEnvioAsoc)
+        .then(function() {
+            alert('¡Todas las obras se asociaron de forma satisfactoria!');
+            window.location= "formulario.php";
+        })
+        .catch(function(error) {
+            alert('Error al asociar obras.');
+            window.location= "formulario.php"
+        });
+    }
+
+    </script>
 </body>
 </html>
