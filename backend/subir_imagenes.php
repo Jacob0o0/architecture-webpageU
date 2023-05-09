@@ -13,7 +13,7 @@
     }
 
     // Verificar que el archivo tenga un formato válido
-    $permitidos = array("image/jpeg", "image/png");
+    $permitidos = array("image/jpeg", "image/jpg", "image/png");
     $tipo = $_FILES['imagen']['type'];
 
     if (!in_array($tipo, $permitidos)) {

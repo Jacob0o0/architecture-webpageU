@@ -25,6 +25,7 @@
 
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
     <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #494d7e;">
+        
         <!-- NAVBAR -->
         <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #494d7e;">
             <nav class="navbar navbar-expand-lg navbar-light nav-bar-J">
@@ -77,160 +78,168 @@
             </nav>
         </div>
 
-        <div class="container col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
-            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-                <div class="main-image" id="top"></div>
-            </div>
-    
-            <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-                <div class="container-section" id="info">
-                    <h2>Información</h2>
-                    <div class="row">
-                        <div class="col-sm-12 col-md-6 col-lg-6" style="padding: 10px 30px 40px 30px;">
-                            <div class="container-section container-imagen" style="background-image: url(assets/images/san-rafael.jpg); height: 100%">
-                        </div>
-                        </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6" style="margin: 0;">
-                            
-                            <div class="container-texto">
-                                <p>
-                                    El siglo XIX es importante para México por  representar los primeros pasos como nación independiente y con ello, un tiempo de profundos cambios sociales, políticos y económicos. Un tiempo convulso, caracterizado por constantes luchas  y contiendas ideológicas en esa constante búsqueda por definir el rumbo del naciente país. El quehacer arquitectónico, sin duda  no escapa a todas estas transformaciones  y es el reflejo de la “cultura” de la época, con todo lo que ello significa.
-                                </p>
-                    
-                                <p>
-                                    “Espacio arquitectónico en México”  es el resultado de la colaboración de estudiantes de la carrera de Arquitectura  en la  Facultad de Estudios Superiores Acatlán, UNAM,  que tiene como objetivo : el conocimiento, la  difusión  y revalorización del patrimonio arquitectónico  del siglo XIX  y principios del siglo XX desarrollado en la Ciudad de México.
-                                </p>
-                    
-                                <p>
-                                    Es un espacio formado por y para estudiantes de arquitectura, así como para profesores ,arquitectos y para todo aquel interesado en conocer las características  del espacio arquitectónico  de toda una época, bajo una premisa:  si conocemos nuestro pasado podremos valorarlo y solo así construir nuestro futuro.
-                                </p>
+        <!-- Contenedor del lado derecho de la barra y normal en pantalla md y sm -->
+        <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
+
+            <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #eef3fb;">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
+                    <div class="main-image"></div>
+                </div>
+        
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="info">
+                    <div class="container-section">
+                        <h2>Información</h2>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6 col-lg-6" style="padding: 10px 30px 40px 30px;">
+                                <div class="container-section container-imagen" style="background-image: url(assets/images/san-rafael.jpg); height: 100%">
                             </div>
-                            <div class="containersection" style="display: flex; align-items: flex-end; margin: 0; padding-right: 50px;">
-                                <p class="caption-J"><em>Arq. Rosa Alejandra Guzmán Martínez</em></p>
-                                <p class="caption-J"><em>Profesora de la Facultad de Estudios Superiores Acatlán, UNAM</em></p>
-                                <p class="caption-J"><em>Arquitectura</em></p>
+                            </div>
+                            <div class="col-sm-12 col-md-6 col-lg-6" style="margin: 0;">
+                                
+                                <div class="container-texto">
+                                    <p>
+                                        El siglo XIX es importante para México por  representar los primeros pasos como nación independiente y con ello, un tiempo de profundos cambios sociales, políticos y económicos. Un tiempo convulso, caracterizado por constantes luchas  y contiendas ideológicas en esa constante búsqueda por definir el rumbo del naciente país. El quehacer arquitectónico, sin duda  no escapa a todas estas transformaciones  y es el reflejo de la “cultura” de la época, con todo lo que ello significa.
+                                    </p>
+                        
+                                    <p>
+                                        “Espacio arquitectónico en México”  es el resultado de la colaboración de estudiantes de la carrera de Arquitectura  en la  Facultad de Estudios Superiores Acatlán, UNAM,  que tiene como objetivo : el conocimiento, la  difusión  y revalorización del patrimonio arquitectónico  del siglo XIX  y principios del siglo XX desarrollado en la Ciudad de México.
+                                    </p>
+                        
+                                    <p>
+                                        Es un espacio formado por y para estudiantes de arquitectura, así como para profesores ,arquitectos y para todo aquel interesado en conocer las características  del espacio arquitectónico  de toda una época, bajo una premisa:  si conocemos nuestro pasado podremos valorarlo y solo así construir nuestro futuro.
+                                    </p>
+                                </div>
+                                <div class="containersection" style="display: flex; align-items: flex-end; margin: 0; padding-right: 50px;">
+                                    <p class="caption-J"><em>Arq. Rosa Alejandra Guzmán Martínez</em></p>
+                                    <p class="caption-J"><em>Profesora de la Facultad de Estudios Superiores Acatlán, UNAM</em></p>
+                                    <p class="caption-J"><em>Arquitectura</em></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; text-align: center;">
-                <div class="container-section" id="espacios">
-                    <h2>Container de Urbanismo</h2>
-                    <div class="row" style="align-items: center;">
-                        <?php 
-                            require 'backend/conexion.php';
-                            // Consulta para obtener los datos del edificio y su imagen
-                            $sql = "SELECT e.id, e.espacioUrbNom, i.imagen FROM espacioUrbano e
-                            INNER JOIN imagenesObras i ON e.id = i.idEspacio
-                            WHERE i.idSeccion = 'MN'";
                 
-                            $resultado = $conexion->query($sql);
-                
-                            // Iterar sobre los resultados y generar un card HTML para cada edificio
-                            while ($filaEspacio = $resultado->fetch_assoc()) {
-                                $idEspacio = $filaEspacio['id'];
-                                $nombreEspacio = $filaEspacio['espacioUrbNom'];
-                                $imagenEspacio = base64_encode($filaEspacio['imagen']);
-                
-                                // Generar el card HTML con el nombre y la imagen del edificio
-                                echo '<div class="col-lg-4 col-md-6 col-md-6">';
-                                echo '<div class="card">';
-                                echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
-                                echo '<form action="edificios.php" method="post">';
-                                echo '<div class="card-body">';
-                                echo '<h5 class="card-title">' . $nombreEspacio . '</h5>';
-                                echo '<input type="hidden" name="id_edificio" value="' . $idEspacio . '">';
-                                echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
-                                echo '</div>';
-                                echo '</form>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                        ?>
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px; text-align: center;" id="espacios">
+                    <div class="container-section">
+                        <h2>Container de Urbanismo</h2>
+                        <div class="row" style="align-items: center;">
+                            <?php 
+                                require 'backend/conexion.php';
+                                // Consulta para obtener los datos del edificio y su imagen
+                                $sql = "SELECT e.id, e.espacioUrbNom, i.imagen FROM espacioUrbano e
+                                INNER JOIN imagenesObras i ON e.id = i.idEspacio
+                                WHERE i.idSeccion = 'MN'";
+                    
+                                $resultado = $conexion->query($sql);
+                    
+                                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                                while ($filaEspacio = $resultado->fetch_assoc()) {
+                                    $idEspacio = $filaEspacio['id'];
+                                    $nombreEspacio = $filaEspacio['espacioUrbNom'];
+                                    $imagenEspacio = base64_encode($filaEspacio['imagen']);
+                    
+                                    // Generar el card HTML con el nombre y la imagen del edificio
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    echo '<div class="card">';
+                                    echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
+                                    echo '<form action="edificios.php" method="post">';
+                                    echo '<div class="card-body">';
+                                    echo '<h5 class="card-title">' . $nombreEspacio . '</h5>';
+                                    echo '<input type="hidden" name="id_edificio" value="' . $idEspacio . '">';
+                                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                    echo '</div>';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="edificios">
+                    <div class="container-section">
+                        <h2>Container de Edificios</h2>
+                        <div class="row" style="align-items: center;">
+                            <?php 
+                                require 'backend/conexion.php';
+                                // Consulta para obtener los datos del edificio y su imagen
+                                $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
+                                INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
+                                WHERE i.idSeccion = 'MN'";
+                    
+                                $resultado = $conexion->query($sql);
+                    
+                                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                                while ($filaEdif = $resultado->fetch_assoc()) {
+                                    $idEdif = $filaEdif['idEdificio'];
+                                    $nombreEdif = $filaEdif['nombre'];
+                                    $imagenEdif = base64_encode($filaEdif['imagen']);
+                    
+                                    // Generar el card HTML con el nombre y la imagen del edificio
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    echo '<div class="card">';
+                                    echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
+                                    echo '<form action="edificios.php" method="post">';
+                                    echo '<div class="card-body d-flex flex-column">';
+                                    echo '<h5 class="card-title">' . $nombreEdif . '</h5>';
+                                    echo '<input type="hidden" name="id_edificio" value="' . $idEdif . '">';
+                                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                    echo '</div>';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="biografias">
+                    <div class="container-section">
+                        <h2>Container de Biografias</h2>
+                        <div class="row" style="align-items: center;">
+                            <?php 
+                                require 'backend/conexion.php';
+                                // Consulta para obtener los datos del edificio y su imagen
+                                $sql = "SELECT p.idPersonaje, p.nomPer, i.imagen FROM personaje p
+                                INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje";
+                    
+                                $resultado = $conexion->query($sql);
+                    
+                                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                                while ($filaPersonaje = $resultado->fetch_assoc()) {
+                                    $idPersonaje = $filaPersonaje['idPersonaje'];
+                                    $nombrePersonaje = $filaPersonaje['nomPer'];
+                                    $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
+                    
+                                    // Generar el card HTML con el nombre y la imagen del edificio
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    echo '<div class="card">';
+                                    echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
+                                    echo '<form action="edificios.php" method="post">';
+                                    echo '<div class="card-body">';
+                                    echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
+                                    echo '<input type="hidden" name="id_edificio" value="' . $idPersonaje . '">';
+                                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                    echo '</div>';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>
-    
-            <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-                <div class="container-section" id="edificios">
-                    <h2>Container de Edificios</h2>
-                    <div class="row" style="align-items: center;">
-                        <?php 
-                            require 'backend/conexion.php';
-                            // Consulta para obtener los datos del edificio y su imagen
-                            $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
-                            INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
-                            WHERE i.idSeccion = 'MN'";
-                
-                            $resultado = $conexion->query($sql);
-                
-                            // Iterar sobre los resultados y generar un card HTML para cada edificio
-                            while ($filaEdif = $resultado->fetch_assoc()) {
-                                $idEdif = $filaEdif['idEdificio'];
-                                $nombreEdif = $filaEdif['nombre'];
-                                $imagenEdif = base64_encode($filaEdif['imagen']);
-                
-                                // Generar el card HTML con el nombre y la imagen del edificio
-                                echo '<div class="col-lg-4 col-md-6 col-sm-6">';
-                                echo '<div class="card h-100">';
-                                echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
-                                echo '<form action="edificios.php" method="post">';
-                                echo '<div class="card-body d-flex flex-column">';
-                                echo '<h5 class="card-title">' . $nombreEdif . '</h5>';
-                                echo '<input type="hidden" name="id_edificio" value="' . $idEdif . '">';
-                                echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
-                                echo '</div>';
-                                echo '</form>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                        ?>
-                    </div>
-                </div>
-            </div>
-    
-            <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
-                <div class="container-section" id="biografias">
-                    <h2>Container de Biografias</h2>
-                    <div class="row" style="align-items: center;">
-                        <?php 
-                            require 'backend/conexion.php';
-                            // Consulta para obtener los datos del edificio y su imagen
-                            $sql = "SELECT p.idPersonaje, p.nomPer, i.imagen FROM personaje p
-                            INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje";
-                
-                            $resultado = $conexion->query($sql);
-                
-                            // Iterar sobre los resultados y generar un card HTML para cada edificio
-                            while ($filaPersonaje = $resultado->fetch_assoc()) {
-                                $idPersonaje = $filaPersonaje['idPersonaje'];
-                                $nombrePersonaje = $filaPersonaje['nomPer'];
-                                $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
-                
-                                // Generar el card HTML con el nombre y la imagen del edificio
-                                echo '<div class="col-lg-4 col-md-6 col-md-6">';
-                                echo '<div class="card">';
-                                echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
-                                echo '<form action="edificios.php" method="post">';
-                                echo '<div class="card-body">';
-                                echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
-                                echo '<input type="hidden" name="id_edificio" value="' . $idPersonaje . '">';
-                                echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
-                                echo '</div>';
-                                echo '</form>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
-                        ?>
-                    </div>
+
+            <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #494d7e; margin: 0px;" id="contacto">
+                <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
+                    <a href="login.php">Login</a>
                 </div>
             </div>
         </div>
-    </div>
-    
-    <div class="footer footer-J col-12" id="contacto">
         
     </div>
 </div>

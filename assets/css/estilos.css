@@ -35,8 +35,8 @@ main{
     justify-content: center;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 120, 210, 0.5);
-
+    background-color: rgb(73, 77, 126, 0.85);
+    border-radius: 20px;
 }
 
 .caja__trasera div{
