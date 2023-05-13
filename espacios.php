@@ -1,12 +1,15 @@
 <?php 
-    $idEdificio = $_POST['id_edificio'];
+    $idEspacio = $_POST['id_espacio'];
     require 'backend/conexion.php';
 
-    $edificio = mysqli_query($conexion, "SELECT * FROM edificio WHERE idEdificio ='$idEdificio'");
+    $espacioUrbano = mysqli_query($conexion, "SELECT * FROM espacioUrbano WHERE id ='$idEspacio'");
+    $filaEspacio = $espacioUrbano->fetch_assoc();
 
-    $filaEdificio = $edificio->fetch_assoc();
+    $idDescrip = $filaEspacio['descripUrb_idDescripUrb'];
+    $descripUrbano = mysqli_query($conexion, "SELECT * FROM descripUrbano WHERE id ='$idDescrip'");
+    $filaDescrip = $descripUrbano->fetch_assoc();
 
-    $imagen = mysqli_query($conexion, "SELECT * FROM imagenesObras WHERE idEdificio = '$idEdificio' AND idSeccion = 'MN'");
+    $imagen = mysqli_query($conexion, "SELECT * FROM imagenesObras WHERE idEspacio = '$idEspacio' AND idSeccion = 'MN'");
     
     $filaMainImagen = $imagen->fetch_assoc();
     $mainImagen = $filaMainImagen['imagen'];
@@ -36,7 +39,7 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     
-    <title><?php echo($filaEdificio['nombre']) ?></title>
+    <title><?php echo($filaEspacio['espacioUrbNom']) ?></title>
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
@@ -89,26 +92,20 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#corriente">
-                                    <i class="bi bi-palette-fill"></i>
-                                    <span>Corriente</span>
-                                </a>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#materiales">
-                                    <i class="bi bi-bricks"></i>
-                                    <span>Materiales</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contextoU">
-                                    <i class="bi bi-building-fill-exclamation"></i>
-                                    <span>Contexto</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#transform">
                                     <i class="bi bi-hourglass-split"></i>
                                     <span>Cambios</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#diseño">
+                                    <i class="bi bi-palette-fill"></i>
+                                    <span>Diseño</span>
+                                </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#importancia">
+                                    <i class="bi bi-question-lg"></i>
+                                    <span>Importancia</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -131,16 +128,28 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image" style="background-image: url('data:<?php echo $tipoImagen; ?>;base64,<?php echo base64_encode($mainImagen); ?>')">
                         <div class="">
-                            <h2><?php echo($filaEdificio['nombre']) ?></h2>
+                            <h2><?php echo($filaEspacio['espacioUrbNom']) ?></h2>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="general">
                     <div class="container-section shadow">
-                        <h2>Género y tipología de edificio<br></h2>
-                        <h3><?php echo($filaEdificio['usoActual'])?><br></h3>
-                        <h4><?php echo($filaEdificio['fechaConstruc'])?><br></h4>
+                        <h3>Género y tipología de edificio:<br></h3>
+                        <h3>Periodo en que se estableció:<br></h3>
+                            <div class="container-texto">
+                                <p><?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['periodoConstruc']));
+                                    echo($texto_con_br)
+                                ?></p>
+                            </div>
+                        <h3>Función:<br></h3>
+                            <div class="container-texto">
+                                <p><?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['funcion']));
+                                    echo($texto_con_br)
+                                ?></p>
+                            </div>
                         <div>
                         </div>
                     </div>
@@ -169,7 +178,7 @@
                         <h2>Contexto Histórico</h2>
                         <div class="container-texto">
                             <p><?php 
-                                $texto_con_br = nl2br(htmlspecialchars($filaEdificio['contextoHistorico']));
+                                $texto_con_br = nl2br(htmlspecialchars($filaEspacio['contextoHistorico']));
                                 echo($texto_con_br)
                             ?></p>
                         </div>
@@ -178,56 +187,66 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="descripcion">
                     <div class="container-section shadow">
-                        <h2>Descripción del espacio arquitectónico</h2>
-                        <h3>Concepto</h3>
+                        <h2>Descripción del proyecto original</h2>
+                        <h3>Plan urbanístico o política urbana:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['concepto']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['planUrbanistico']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                        <h3>Plantas Arquitectónicas</h3>
-                        <h3>Fachadas y ornamentos</h3>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="corriente">
-                    <div class="container-section shadow">
-                        <h2>Corriente estilística</h2>
+                        <h3>Características particulares:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['corrienteEst']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['caracteristicas']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="materiales">
-                    <div class="container-section shadow">
-                        <h2>Materiales y sistemas constructivos empleados</h2>
+                        <h3>Orientación:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['materialYSistem']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['orientacion']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="contextoU">
-                    <div class="container-section shadow">
-                        <h2>Contexto urbano: Situación y emplazamiento</h2>
+                        <h3>Dimensiones:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['contextoUrbano']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['dimensiones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Secciones:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['secciones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Elementos de la imagen urbana:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['elementos']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Tipos de edificaciones que rodean al espacio:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['tiposEdifRodeando']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
@@ -237,11 +256,39 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="transform">
                     <div class="container-section shadow">
-                        <h2>Transformaciones del espacio: Remodelaciones y/o adecuaciones</h2>
+                        <h2>Transformaciones del espacio</h2>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['transformaciones']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['transformaciones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="diseño">
+                    <div class="container-section shadow">
+                        <h2>Principios de diseño</h2>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['principiosDiseño']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="importancia">
+                    <div class="container-section shadow">
+                        <h2>Importancia del espacio urbano</h2>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['importancia']));
                                     echo($texto_con_br);
                                 ?>
                             </p>

@@ -88,7 +88,7 @@
                 </div>
         
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="info">
-                    <div class="container-section">
+                    <div class="container-section shadow">
                         <h2>Información</h2>
                         <div class="row">
                             <div class="col-sm-12 col-md-6 col-lg-6" style="padding: 10px 30px 40px 30px;">
@@ -121,8 +121,8 @@
                 </div>
                 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px; text-align: center;" id="espacios">
-                    <div class="container-section">
-                        <h2>Container de Urbanismo</h2>
+                    <div class="container-section shadow">
+                        <h2>Espacios Urbanos</h2>
                         <div class="row" style="align-items: center;">
                             <?php 
                                 require 'backend/conexion.php';
@@ -141,12 +141,12 @@
                     
                                     // Generar el card HTML con el nombre y la imagen del edificio
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
-                                    echo '<div class="card">';
+                                    echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
-                                    echo '<form action="edificios.php" method="post">';
+                                    echo '<form action="espacios.php" method="post">';
                                     echo '<div class="card-body">';
                                     echo '<h5 class="card-title">' . $nombreEspacio . '</h5>';
-                                    echo '<input type="hidden" name="id_edificio" value="' . $idEspacio . '">';
+                                    echo '<input type="hidden" name="id_espacio" value="' . $idEspacio . '">';
                                     echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
                                     echo '</div>';
                                     echo '</form>';
@@ -159,8 +159,8 @@
                 </div>
         
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="edificios">
-                    <div class="container-section">
-                        <h2>Container de Edificios</h2>
+                    <div class="container-section shadow">
+                        <h2>Edificios</h2>
                         <div class="row" style="align-items: center;">
                             <?php 
                                 require 'backend/conexion.php';
@@ -179,7 +179,7 @@
                     
                                     // Generar el card HTML con el nombre y la imagen del edificio
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
-                                    echo '<div class="card">';
+                                    echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
                                     echo '<form action="edificios.php" method="post">';
                                     echo '<div class="card-body d-flex flex-column">';
@@ -197,8 +197,8 @@
                 </div>
         
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="biografias">
-                    <div class="container-section">
-                        <h2>Container de Biografias</h2>
+                    <div class="container-section shadow">
+                        <h2>Biografias</h2>
                         <div class="row" style="align-items: center;">
                             <?php 
                                 require 'backend/conexion.php';
@@ -216,7 +216,7 @@
                     
                                     // Generar el card HTML con el nombre y la imagen del edificio
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
-                                    echo '<div class="card">';
+                                    echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
                                     echo '<form action="edificios.php" method="post">';
                                     echo '<div class="card-body">';
@@ -235,9 +235,25 @@
             </div>
 
             <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #494d7e; margin: 0px;" id="contacto">
-                <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
+                <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
-                </div>
+                </div> -->
+                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <a href="login.php" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <i class="bi bi-buildings"></i>
+                            <span class="text-muted">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
+                        </a>
+
+                        <br>
+                    </div>
+
+                    <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                        <a href="" style="padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
+                        <a href="" style="padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
+                        <a href="" style="padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
+                    </div>
+                </footer>
             </div>
         </div>
         

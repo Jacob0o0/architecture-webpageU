@@ -7883,8 +7883,13 @@ button.bg-dark:focus {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
+/* "MINE" */
 .shadow {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.6) !important;
+}
+
+.shadow-nav {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.6) !important;
 }
 
 .shadow-lg {
@@ -10190,6 +10195,12 @@ a.text-dark:hover, a.text-dark:focus {
   min-height: 300px;
 }
 
+.card:hover {
+  transform: scale(1.05);
+  border: 18px solid rgba(73, 77, 126, 0.4);
+  transition: 0.3s ease-in-out;
+}
+
 @media (min-width: 992px) {
   .navbar, .container-fluid, .navbar-expand-lg, .navbar-collapse, .navbar-nav{
     z-index: 99;
@@ -10272,6 +10283,9 @@ a.text-dark:hover, a.text-dark:focus {
     height: 45px;
     border-radius: 50px;
     transition: 0.4s ease;
+
+    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.3);
+    border-radius: 50px;
   }
 
   li.active a i {
