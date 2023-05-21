@@ -18,6 +18,14 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
+
+
+    <!-- Scrollreveal -->
+    <script src="https://unpkg.com/scrollreveal"></script>
 
     <title>Espacio Urbano</title>
 </head>
@@ -86,11 +94,13 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image"></div>
                 </div>
+
+                <div class="divider"></div>
         
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="info">
                     <div class="container-section shadow">
                         <h2>Información</h2>
-                        <div class="row">
+                        <div class="row" style="display: none;" id="info-collapse">
                             <div class="col-sm-12 col-md-6 col-lg-6" style="padding: 10px 30px 40px 30px;">
                                 <div class="container-section container-imagen" style="background-image: url(assets/images/san-rafael.jpg); height: 100%">
                             </div>
@@ -117,13 +127,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="divider"></div>
+                        <button class="btn btn-primary" id="mostrarContenido" style="border-radius: 50px;">
+                            <i class="bi bi-arrow-bar-down"></i>
+                        </button>
+                        <div class="divider"></div>
                     </div>
                 </div>
                 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px; text-align: center;" id="espacios">
                     <div class="container-section shadow">
                         <h2>Espacios Urbanos</h2>
-                        <div class="row" style="align-items: center;">
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
                             <?php 
                                 require 'backend/conexion.php';
                                 // Consulta para obtener los datos del edificio y su imagen
@@ -161,7 +176,21 @@
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="edificios">
                     <div class="container-section shadow">
                         <h2>Edificios</h2>
-                        <div class="row" style="align-items: center;">
+                        <div class="divider"></div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                            <div class="category-list">
+                                <a href="" class="category-item" category="All">Todos</a>
+                                <a href="" class="category-item" category="Cultura">Cultura</a>
+                                <a href="" class="category-item" category="Comercio">Comercio</a>
+                                <a href="" class="category-item" category="Vivienda">Vivienda</a>
+                                <a href="" class="category-item" category="Exposiciones">Exposiciones</a>
+                                <a href="" class="category-item" category="Educación">Educación</a>
+                                <a href="" class="category-item" category="Iglesias">Iglesias</a>
+                                <a href="" class="category-item" category="Gobierno">Gobiero</a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
                             <?php 
                                 require 'backend/conexion.php';
                                 // Consulta para obtener los datos del edificio, su imagen y el género
@@ -183,7 +212,7 @@
                                     $nombreGenero = $filaEdif['nombreGenero'];
                     
                                     // Generar el card HTML con el nombre y la imagen del edificio
-                                    echo '<div class="col-lg-4 col-md-6 col-md-6" category="'.$nombreGenero.'">';
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6 edif-card" category="'.$nombreGenero.'">';
                                     echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
                                     echo '<form action="edificios.php" method="post">';
@@ -204,22 +233,22 @@
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="biografias">
                     <div class="container-section shadow">
                         <h2>Biografias</h2>
-                        <div class="row" style="align-items: center;">
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
                             <?php 
                                 require 'backend/conexion.php';
-                                // Consulta para obtener los datos del edificio y su imagen
+                                // Consulta para obtener los datos del personaje y su imagen
                                 $sql = "SELECT p.idPersonaje, p.nomPer, i.imagen FROM personaje p
                                 INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje";
                     
                                 $resultado = $conexion->query($sql);
                     
-                                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                                // Iterar sobre los resultados y generar un card HTML para cada personaje
                                 while ($filaPersonaje = $resultado->fetch_assoc()) {
                                     $idPersonaje = $filaPersonaje['idPersonaje'];
                                     $nombrePersonaje = $filaPersonaje['nomPer'];
                                     $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
                     
-                                    // Generar el card HTML con el nombre y la imagen del edificio
+                                    // Generar el card HTML con el nombre y la imagen del personaje
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
                                     echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
@@ -237,6 +266,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="divider"></div>
             </div>
 
             <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
@@ -269,6 +299,8 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/scroll-active.js"></script>
+    <script src="js/filtros.js"></script>
+    <script src="js/scrollreveal.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -286,6 +318,36 @@
                 // Agregar la clase "active" al enlace de navegación que se hizo clic
                 $(this).parent().addClass('active');
             });
+
+            var contenidoVisible = false; // Variable de estado
+            var infoDiv = document.getElementById('info-collapse');
+            document.getElementById('mostrarContenido').addEventListener('click', function() {
+                
+                if (contenidoVisible) {
+                    gsap.to(infoDiv, { opacity: 0, height: 0, duration: 0.5, onComplete: hideContent }); // Animación para ocultar contenido
+                    contenidoVisible = false; // Actualizar estado
+                    this.innerHTML = '<i class="bi bi-arrow-bar-down"></i>';
+                    // this.textContent = '<i class="bi bi-arrow-bar-down"></i>'; // Cambiar texto del botón
+                } else {
+                    showContent();
+                    gsap.fromTo(infoDiv, { opacity: 0, height: 0 }, { opacity: 1, height: 'auto', duration: 0.5 }); // Animación para mostrar contenido
+                    contenidoVisible = true; // Actualizar estado
+                    this.innerHTML = '<i class="bi bi-arrow-bar-up"></i>'; // Cambiar texto del botón
+                }
+            });
+
+            function hideContent() {
+                infoDiv.style.display = 'none'; // Ocultar completamente el contenido después de la animación
+            }
+
+            function showContent() {
+                infoDiv.style.display = 'flex'; // Mostrar el contenido antes de la animación para obtener su altura
+                var height = infoDiv.clientHeight; // Obtener la altura del contenido
+                infoDiv.style.height = '0'; // Establecer la altura inicial en 0 antes de la animación
+                infoDiv.style.overflow = 'hidden'; // Ocultar cualquier desbordamiento durante la animación
+                infoDiv.offsetHeight; // Forzar una lectura del diseño para aplicar la altura inicial correctamente
+                infoDiv.style.height = height + 'px'; // Establecer la altura del contenido antes de la animación
+            }
         });
     </script>
 </body>

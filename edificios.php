@@ -2,7 +2,8 @@
     $idEdificio = $_POST['id_edificio'];
     require 'backend/conexion.php';
 
-    $edificio = mysqli_query($conexion, "SELECT * FROM edificio WHERE idEdificio ='$idEdificio'");
+    $edificio = mysqli_query($conexion, "SELECT edificio.*, generos.nombreGenero FROM edificio INNER JOIN generos ON edificio.idGeneroEdif = generos.idGenero   WHERE edificio.idEdificio = '$idEdificio'");
+
 
     $filaEdificio = $edificio->fetch_assoc();
 
@@ -35,6 +36,10 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     
     <title><?php echo($filaEdificio['nombre']) ?></title>
 </head>
@@ -136,11 +141,13 @@
                     </div>
                 </div>
 
+                <div class="divider"></div>
+
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="general">
                     <div class="container-section shadow">
-                        <h2>Género y tipología de edificio<br></h2>
-                        <h3><?php echo($filaEdificio['usoActual'])?><br></h3>
-                        <h4><?php echo($filaEdificio['fechaConstruc'])?><br></h4>
+                        <h2>Género: <?php echo($filaEdificio['nombreGenero'])?><br></h2>
+                        <h3>Uso actual: <?php echo($filaEdificio['usoActual'])?><br></h3>
+                        <h3>Periodo de construcción: <?php echo($filaEdificio['fechaConstruc'])?><br></h4>
                         <div>
                         </div>
                     </div>
@@ -149,11 +156,40 @@
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="personajes">
                     <div class="container-section shadow">
                         <h2>Arquitecto o ingeniero que lo diseñó</h2>
-                        <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
-                            <div class="card-title">Foto</div>
-                        </div>
-                        <div class="card" style="margin-top: 20px; margin-bottom: 20px;">
-                            <div class="card-title">Edificio</div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                            <?php 
+                                require 'backend/conexion.php';
+                                // Consulta para obtener los datos del personaje y su imagen
+                                // Sentencia SQL para obtener los personajes con idEspacio 3
+                                $sql = "SELECT p.nomPer, p.apellido, p.apellido2, p.idPersonaje, i.imagen
+                                        FROM personaje p
+                                        INNER JOIN arquitectosObras ao ON p.idPersonaje = ao.idPersonaje
+                                        INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje
+                                        WHERE ao.idEdificio = '$idEdificio'";
+                    
+                                $resultado = $conexion->query($sql);
+                    
+                                // Iterar sobre los resultados y generar un card HTML para cada personaje
+                                while ($filaPersonaje = $resultado->fetch_assoc()) {
+                                    $idPersonaje = $filaPersonaje['idPersonaje'];
+                                    $nombrePersonaje = $filaPersonaje['nomPer'];
+                                    $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
+                    
+                                    // Generar el card HTML con el nombre y la imagen del personaje
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    echo '<div class="card shadow">';
+                                    echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
+                                    echo '<form action="biografias.php" method="post">';
+                                    echo '<div class="card-body">';
+                                    echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
+                                    echo '<input type="hidden" name="id_biografia" value="' . $idPersonaje . '">';
+                                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                    echo '</div>';
+                                    echo '</form>';
+                                    echo '</div>';
+                                    echo '</div>';
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -248,6 +284,7 @@
                         </div>
                     </div>
                 </div>
+                <div class="divider"></div>
 
             </div>
 
@@ -281,6 +318,7 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/scroll-active.js"></script>
+    <script src="js/scrollreveal.js"></script>
 
     <script>
         $(document).ready(function() {
