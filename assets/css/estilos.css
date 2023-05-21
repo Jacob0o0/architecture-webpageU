@@ -35,8 +35,8 @@ main{
     justify-content: center;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: rgba(0, 120, 210, 0.5);
-
+    background-color: rgb(26, 26, 26, 0.85);
+    border-radius: 20px;
 }
 
 .caja__trasera div{
@@ -75,7 +75,7 @@ main{
 
 .caja__trasera button:hover{
     background: #fff;
-    color: #494d7e;
+    color: #F1E71E;
 }
 
 /*Formularios*/
@@ -105,7 +105,7 @@ main{
     font-size: 30px;
     text-align: center;
     margin-bottom: 20px;
-    color: #494d7e;
+    color: #F1E71E;
 }
 
 .contenedor__login-register form input{
@@ -123,7 +123,7 @@ main{
     margin-top: 40px;
     border: none;
     font-size: 14px;
-    background: #494d7e;
+    background: #F1E71E;
     font-weight: 600;
     cursor: pointer;
     color: white;

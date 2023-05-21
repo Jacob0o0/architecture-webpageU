@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS edificio(
     nombre VARCHAR(200) NOT NULL,
     idGeneroEdif INT NOT NULL,
     usoActual TEXT,
-    fechaConstruc DATE,
+    fechaConstruc TEXT,
     idUbicacion int NOT NULL,
     contextoHistorico TEXT NOT NULL,
     concepto TEXT,

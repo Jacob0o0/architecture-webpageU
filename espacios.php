@@ -1,13 +1,15 @@
 <?php 
-    $idEdificio = $_POST['id_edificio'];
+    $idEspacio = $_POST['id_espacio'];
     require 'backend/conexion.php';
 
-    $edificio = mysqli_query($conexion, "SELECT edificio.*, generos.nombreGenero FROM edificio INNER JOIN generos ON edificio.idGeneroEdif = generos.idGenero   WHERE edificio.idEdificio = '$idEdificio'");
+    $espacioUrbano = mysqli_query($conexion, "SELECT * FROM espacioUrbano WHERE id ='$idEspacio'");
+    $filaEspacio = $espacioUrbano->fetch_assoc();
 
+    $idDescrip = $filaEspacio['descripUrb_idDescripUrb'];
+    $descripUrbano = mysqli_query($conexion, "SELECT * FROM descripUrbano WHERE id ='$idDescrip'");
+    $filaDescrip = $descripUrbano->fetch_assoc();
 
-    $filaEdificio = $edificio->fetch_assoc();
-
-    $imagen = mysqli_query($conexion, "SELECT * FROM imagenesObras WHERE idEdificio = '$idEdificio' AND idSeccion = 'MN'");
+    $imagen = mysqli_query($conexion, "SELECT * FROM imagenesObras WHERE idEspacio = '$idEspacio' AND idSeccion = 'MN'");
     
     $filaMainImagen = $imagen->fetch_assoc();
     $mainImagen = $filaMainImagen['imagen'];
@@ -40,8 +42,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
-    
-    <title><?php echo($filaEdificio['nombre']) ?></title>
+
+    <title><?php echo($filaEspacio['espacioUrbNom']) ?></title>
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
@@ -94,26 +96,20 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#corriente">
-                                    <i class="bi bi-palette-fill"></i>
-                                    <span>Corriente</span>
-                                </a>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#materiales">
-                                    <i class="bi bi-bricks"></i>
-                                    <span>Materiales</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#contextoU">
-                                    <i class="bi bi-building-fill-exclamation"></i>
-                                    <span>Contexto</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="#transform">
                                     <i class="bi bi-hourglass-split"></i>
                                     <span>Cambios</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#diseño">
+                                    <i class="bi bi-palette-fill"></i>
+                                    <span>Diseño</span>
+                                </a>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#importancia">
+                                    <i class="bi bi-question-lg"></i>
+                                    <span>Importancia</span>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -136,7 +132,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image" style="background-image: url('data:<?php echo $tipoImagen; ?>;base64,<?php echo base64_encode($mainImagen); ?>')">
                         <div class="main-title">
-                            <?php echo($filaEdificio['nombre']) ?>
+                            <?php echo($filaEspacio['espacioUrbNom']) ?>
                         </div>
                     </div>
                 </div>
@@ -145,17 +141,20 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="general">
                     <div class="container-section shadow">
-                        <h2>Género: <?php echo($filaEdificio['nombreGenero'])?><br></h2>
-                        <h3>Uso actual: <?php echo($filaEdificio['usoActual'])?><br></h3>
-                        <h3>Periodo de construcción: <?php echo($filaEdificio['fechaConstruc'])?><br></h4>
-                        <div>
+                        <h3>Periodo en que se estableció: <?php $texto_con_br = nl2br(htmlspecialchars($filaEspacio['periodoConstruc'])); echo($texto_con_br);?></h3>
+                        <h3>Función:</h3>
+                        <div class="container-texto" style="padding-top: 0px;">
+                            <p><?php 
+                                $texto_con_br = nl2br(htmlspecialchars($filaEspacio['funcion']));
+                                echo($texto_con_br)
+                            ?></p>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="personajes">
                     <div class="container-section shadow">
-                        <h2>Arquitecto o ingeniero que lo diseñó</h2>
+                        <h2>Personajes involucrados en la creación:</h2>
                         <div class="row col-12" style="align-items: center; justify-content: center;">
                             <?php 
                                 require 'backend/conexion.php';
@@ -165,7 +164,7 @@
                                         FROM personaje p
                                         INNER JOIN arquitectosObras ao ON p.idPersonaje = ao.idPersonaje
                                         INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje
-                                        WHERE ao.idEdificio = '$idEdificio'";
+                                        WHERE ao.idEspacio = '$idEspacio'";
                     
                                 $resultado = $conexion->query($sql);
                     
@@ -205,7 +204,7 @@
                         <h2>Contexto Histórico</h2>
                         <div class="container-texto">
                             <p><?php 
-                                $texto_con_br = nl2br(htmlspecialchars($filaEdificio['contextoHistorico']));
+                                $texto_con_br = nl2br(htmlspecialchars($filaEspacio['contextoHistorico']));
                                 echo($texto_con_br)
                             ?></p>
                         </div>
@@ -214,56 +213,66 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="descripcion">
                     <div class="container-section shadow">
-                        <h2>Descripción del espacio arquitectónico</h2>
-                        <h3>Concepto</h3>
+                        <h2>Descripción del proyecto original</h2>
+                        <h3>Plan urbanístico o política urbana:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['concepto']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['planUrbanistico']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                        <h3>Plantas Arquitectónicas</h3>
-                        <h3>Fachadas y ornamentos</h3>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="corriente">
-                    <div class="container-section shadow">
-                        <h2>Corriente estilística</h2>
+                        <h3>Características particulares:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['corrienteEst']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['caracteristicas']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="materiales">
-                    <div class="container-section shadow">
-                        <h2>Materiales y sistemas constructivos empleados</h2>
+                        <h3>Orientación:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['materialYSistem']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['orientacion']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="contextoU">
-                    <div class="container-section shadow">
-                        <h2>Contexto urbano: Situación y emplazamiento</h2>
+                        <h3>Dimensiones:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['contextoUrbano']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['dimensiones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Secciones:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['secciones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Elementos de la imagen urbana:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['elementos']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                        <h3>Tipos de edificaciones que rodean al espacio:</h3>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['tiposEdifRodeando']));
                                     echo($texto_con_br);
                                 ?>
                             </p>
@@ -273,11 +282,39 @@
 
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="transform">
                     <div class="container-section shadow">
-                        <h2>Transformaciones del espacio: Remodelaciones y/o adecuaciones</h2>
+                        <h2>Transformaciones del espacio</h2>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEdificio['transformaciones']));
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['transformaciones']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="diseño">
+                    <div class="container-section shadow">
+                        <h2>Principios de diseño</h2>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['principiosDiseño']));
+                                    echo($texto_con_br);
+                                ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="importancia">
+                    <div class="container-section shadow">
+                        <h2>Importancia del espacio urbano</h2>
+                        <div class="container-texto">
+                            <p>
+                                <?php 
+                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['importancia']));
                                     echo($texto_con_br);
                                 ?>
                             </p>

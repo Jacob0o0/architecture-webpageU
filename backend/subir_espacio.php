@@ -5,7 +5,7 @@
         // Establecer la conexión a la base de datos
         require 'conexion.php';
 
-        if (empty($_POST['nombreEU']) || empty($_POST['urlUbiEU']) || empty($_POST['calleEU']) || empty($_POST['coloniasEU']) || empty($_POST['municipiosEU']) || empty($_POST['estadosEU']) || empty($_FILES['imagenEspacio']['name'])){
+        if (empty($_POST['nombreEU']) || empty($_POST['urlUbiEU']) || empty($_POST['coloniasEU']) || empty($_POST['municipiosEU']) || empty($_POST['estadosEU']) || empty($_FILES['imagenEspacio']['name'])){
             echo '
             <script>
                 alert("Existen campos vacíos en el formulario. Por favor, complete todos los campos. AQUIIIII");
