@@ -24,10 +24,10 @@
 <body class="overflow-x-hidden">
 
     <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
-        <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #494d7e;">
+        <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1a1a1a;">
 
             <!-- NAVBAR -->
-            <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #494d7e;">
+            <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #F1E71E;">
                 <nav class="navbar navbar-expand-lg navbar-light nav-bar-J">
                     <div class="container-fluid" style="margin-left: 0px; margin-right: 0px; padding: 0px">
                         <a class="navbar-brand" href="#"><i class="bi bi-building-fill"></i> Espacio Urbano</a>
@@ -85,36 +85,46 @@
             </div>
 
             <!-- Contenedor del lado derecho de la barra y normal en pantalla md y sm -->
-            <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
+            <div class="col-lg-10 col-md-12 col-sm-12" style="background-color: #1a1a1a; padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
             
-                <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #eef3fb;">
+                <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
                     <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
                         <div class="main-image" id="top"></div>
                     </div>
-                    
+
+                    <div class="divider"></div>
+
                     <!-- AÑADIR ESPACIOS URBANOS -->
                     <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="espacios">
                         <div class="container-section shadow">
                             <h2>Añadir Espacio Urbano</h2>
-                            <form action="backend/subir_espacio.php" method="POST" enctype="multipart/form-data">
-                                Nombre:* <input type="text" name="nombreEU"> <br>
+                            <div class="divider"></div>
+                            <form action="backend/subir_espacio.php" method="POST" enctype="multipart/form-data" id="formularioEspacio">
+                                Nombre:* <input class="form-control" type="text" name="nombreEU" placeholder="Nombre del espacio urbano..."> <br>
+
+                                <!-- <div class="divider"></div> -->
 
                                 <label for="imagenEspacio">Seleccione la imagen principal:*</label> <br>
-                                <input type="file" id="imagenEspacio" name="imagenEspacio"> <br>
+                                <input class="upload-box" type="file" id="imagenEspacio" name="imagenEspacio"> <br>
+
+                                <div class="divider"></div>
 
                                 Periodo de Construcción:* <br>
-                                <textarea id="periodoConstruc" name="periodoConstruc" rows="5" cols="50" placeholder="Inserte texto aquí..."></textarea> <br>
+                                <textarea class="form-control" id="periodoConstruc" name="periodoConstruc" rows="1" placeholder="Inserte periodo aquí..."></textarea> <br>
 
                                 Función:* <br>
-                                <textarea id="funcion" name="funcion" rows="5" cols="50" placeholder="Inserte texto aquí..."></textarea> <br>
+                                <textarea class="form-control" id="funcion" name="funcion" rows="5" placeholder="Inserte texto aquí..."></textarea> <br>
 
-                                <div class="container" style="background-color: cornsilk;">
-                                    <h3>Ubicación:</h3>
-                                    URL dirección en Google Maps:* <input type="text" name="urlUbiEU"> <br>
-                                    Calle:* <input type="text" name="calleEU"> <br>
+                                <!-- <div class="divider"></div> -->
+
+                                <div class="sub-container">
+                                    <h3>Ubicación</h3>
+                                    <br>
+                                    URL dirección en Google Maps:* <input class="form-control" type="text" name="urlUbiEU"> <br>
+                                    Calle: <input class="form-control" placeholder="Calle y número..." type="text" id="calleEU" name="calleEU"> <br>
                                     Estado:*
-                                        <select name='estadosEU' onchange='getMunicipiosEU(this.value)'>
+                                        <select class="form-control" name='estadosEU' onchange='getMunicipiosEU(this.value)'>
                                             <option value="">Seleccione una opción.</option>
                                             <?php 
                                                 require 'backend/conexion.php';
@@ -131,62 +141,75 @@
                                             ?>
                                         </select> <br>
                                     Municipio:*
-                                    <select name='municipiosEU' onchange='getColoniasEU(this.value)' id='municipiosEU'>
+                                    <select class="form-control" name='municipiosEU' onchange='getColoniasEU(this.value)' id='municipiosEU'>
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     Colonia:*
-                                    <select name="coloniasEU" id="coloniasEU">
+                                    <select class="form-control" name="coloniasEU" id="coloniasEU">
                                         <option value="">Seleccione una opción.</option>
                                     </select>
                                 </div>
 
                                 Contexto Histórico:* <br>
-                                <textarea id="contextoEU" name="contextoEU" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="contextoEU" name="contextoEU" rows="5"></textarea> <br>
 
-                                <div class="container" style="background-color: cornsilk;">
-                                    <h3>Descripcion del proyecto original:</h3>
+                                <div class="sub-container">
+                                    <h3>Descripcion del proyecto original</h3>
                                     Plan Urbanistico: <br>
-                                    <textarea id="plan" name="plan" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="plan" name="plan" rows="5"></textarea> <br>
                                     Características: <br>
-                                    <textarea id="caracteristicas" name="caracteristicas" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="caracteristicas" name="caracteristicas" rows="5"></textarea> <br>
                                     Orientación: <br>
-                                    <textarea id="orientacion" name="orientacion" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="orientacion" name="orientacion" rows="5"></textarea> <br>
                                     Dimensiones: <br>
-                                    <textarea id="dimensiones" name="dimensiones" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="dimensiones" name="dimensiones" rows="5"></textarea> <br>
                                     Secciones: <br>
-                                    <textarea id="secciones" name="secciones" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="secciones" name="secciones" rows="5"></textarea> <br>
                                     Elementos de la imagen urbana: <br>
-                                    <textarea id="elementos" name="elementos" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="elementos" name="elementos" rows="5"></textarea> <br>
                                     Tipos de edificaciones que rodean el espacio urbano: <br>
-                                    <textarea id="tiposEdif" name="tiposEdif" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="tiposEdif" name="tiposEdif" rows="5"></textarea>
                                 </div>
 
                                 Transformaciones del espacio:* <br>
-                                <textarea id="transformEU" name="transformEU" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="transformEU" name="transformEU" rows="5"></textarea> <br>
 
                                 Principios del diseño:* <br>
-                                <textarea id="principiosDis" name="principiosDis" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="principiosDis" name="principiosDis" rows="5"></textarea> <br>
 
                                 Importancia del espacio urbano: <br>
-                                <textarea id="importancia" name="importancia" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="importancia" name="importancia" rows="5"></textarea> <br>
+                                
+                                <div class="divider"></div>
+                                <div class="divider"></div>
 
                                 <input class="btn btn-primary" type="submit" name="subirEspacio" value="Subir Espacio Urbano">
+                                <div class="divider"></div>
                             </form>
+                            
+                            <!-- <button class="btn-expandir" id="btnExpandir">
+                                <i class="bi bi-arrow-bar-down"></i>
+                            </button> -->
+
                         </div>
+
                     </div>
 
                     <!-- AÑADIR EDIFICIOS -->
                     <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="edificios">
                         <div class="container-section shadow">
                             <h2>Añadir Edificación</h2>
+                            <div class="divider"></div>
                             <form action="backend/subir_edificio.php" method="POST" enctype="multipart/form-data">
-                                Nombre:* <input type="text" name="nombre"> <br>
+                                Nombre:* <input class="form-control" placeholder="Nombre del edificio..." type="text" name="nombre"> <br>
 
                                 <label for="imagenEdif">Seleccione la imagen principal:*</label> <br>
-                                <input type="file" id="imagenEdif" name="imagenEdif"> <br>
+                                <input class="upload-box" type="file" id="imagenEdif" name="imagenEdif"> <br>
+
+                                <div class="divider"></div>
                                 Genero Edificio:* <br>
 
-                                <select class="form-select" name='generos'>
+                                <select class="form-select form-control" name='generos'>
                                     <option value="">Seleccione una opción.</option>
                                     <?php 
                                         require 'backend/conexion.php';
@@ -201,11 +224,16 @@
                                             echo "Error con la conexión.";
                                         }
                                     ?>
-                                </select> <br>
+                                </select>
+
+                                <div class="divider"></div>
+
                                 Uso Actual: <br>
-                                <textarea id="usoActual" name="usoActual" rows="5" cols="50" placeholder="Introduzca texto aquí..."></textarea> <br>
-                                Fecha de Construcción: <input type="date" 
-                                name="fechaConstruc"> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="usoActual" name="usoActual" rows="5" placeholder="Introduzca texto aquí..."></textarea> <br>
+
+                                Fecha de Construcción: <textarea class="form-control" placeholder="Inserte periodo aquí..." name="fechaConstruc" id="fechaConstruc" rows="1"></textarea> <br>
+
+                                <div class="divider"></div>
                                 
                                 <!-- Arquitecto(s) o Ingeniero(s): <br> -->
                                 <!-- <select name='arquitectos'>
@@ -226,12 +254,13 @@
                                 <div id="contenedorSelect"></div> -->
                                 <!-- SECCION ELIMINADA PORQUE SE ASOCIARÁN LOS PERSONAJES EN OTRO APARTADO -->
 
-                                <div class="container" style="background-color: cornsilk;">
-                                    <h3>Ubicación:</h3>
-                                    URL dirección en Google Maps:* <input type="text" name="urlUbi"> <br>
-                                    Calle:* <input type="text" name="calle"> <br>
+                                <div class="sub-container">
+                                    <h3>Ubicación</h3>
+                                    <br>
+                                    URL dirección en Google Maps:* <input class="form-control" type="text" name="urlUbi"> <br>
+                                    Calle:* <input class="form-control" placeholder="Calle y número..." type="text" name="calle"> <br>
                                     Estado:*
-                                    <select name='estados' onchange='getMunicipios(this.value)'>
+                                    <select class="form-control" name='estados' onchange='getMunicipios(this.value)'>
                                         <option value="">Seleccione una opción.</option>
                                         <?php 
                                             require 'backend/conexion.php';
@@ -248,37 +277,41 @@
                                         ?>
                                     </select> <br>
                                     Municipio:*
-                                    <select name='municipios' onchange='getColonias(this.value)' id='municipios'>
+                                    <select class="form-control" name='municipios' onchange='getColonias(this.value)' id='municipios'>
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     Colonia:*
-                                    <select name="colonias" id="colonias">
+                                    <select class="form-control" name="colonias" id="colonias">
                                         <option value="">Seleccione una opción.</option>
                                     </select>
                                 </div>
 
                                 Contexto Histórico:* <br>
-                                <textarea id="contexto" name="contexto" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="contexto" name="contexto" rows="5"></textarea> <br>
 
-                                <div class="container" style="background-color: cornsilk;">
+                                <div class="sub-container">
                                     <h3>Descripcion del Edificio</h3>
                                     Concepto: <br>
-                                    <textarea id="concepto" name="concepto" rows="5" cols="50"></textarea> <br>
+                                    <textarea class="form-control" placeholder="Inserte texto aquí..." id="concepto" name="concepto" rows="5"></textarea>
                                 </div>
 
                                 Corriente Estilística: <br>
-                                <textarea id="corrienteEst" name="corrienteEst" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="corrienteEst" name="corrienteEst" rows="5"></textarea> <br>
 
                                 Materiales y Sistema: <br>
-                                <textarea id="matYSist" name="matYSist" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="matYSist" name="matYSist" rows="5"></textarea> <br>
 
                                 Contexto Urbano: <br>
-                                <textarea id="contextUrb" name="contextUrb" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="contextUrb" name="contextUrb" rows="5"></textarea> <br>
 
                                 Transformaciones del espacio: <br>
-                                <textarea id="transform" name="transform" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="transform" name="transform" rows="5"></textarea> <br>
+                                <div class="divider"></div>
+                                <div class="divider"></div>
 
                                 <input class="btn btn-primary" type="submit" name="subirEdif" value="Subir Edificación">
+
+                                <div class="divider"></div>
                             </form>
                         </div>
                     </div>
@@ -288,15 +321,21 @@
                     <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="personajes">
                         <div class="container-section shadow">
                             <h2>Añadir Arquitecto o Ingeniero</h2>
+                            <div class="divider"></div>
                             <form action="backend/subir_personaje.php" method="POST" enctype="multipart/form-data">
-                                Nombre:* <input type="text" name="nombre"> <br>
-                                Primer Apellido:* <input type="text" name="apellido1"> <br>
-                                Segundo Apellido: <input type="text" name="apellido2"> <br>
+
+                                Nombre:* <input class="form-control" type="text" name="nombre"> <br>
+                                Primer Apellido:* <input class="form-control" type="text" name="apellido1"> <br>
+                                Segundo Apellido: <input class="form-control" type="text" name="apellido2">
+                                <div class="divider"></div>
+
                                 <label for="imagenPersonaje">Seleccione la imagen principal:*</label> <br>
-                                <input type="file" id="imagenPersonaje" name="imagenPersonaje"> <br>
-                                Fecha de Nacimiento: <input type="date" name="nacimiento"> <br>
+                                <input class="upload-box" type="file" id="imagenPersonaje" name="imagenPersonaje"> <br>
+                                <div class="divider"></div>
+
+                                Fecha de Nacimiento: <input class="form-control" type="date" name="nacimiento"> <br>
                                 País de Origen:*
-                                <select name='paises'>
+                                <select class="form-control" name='paises'>
                                     <option value="">Seleccione una opción.</option>
                                     <?php 
                                         require 'backend/conexion.php';
@@ -311,14 +350,19 @@
                                             echo "Error con la conexión.";
                                         }
                                     ?>
-                                </select> <br>
+                                </select>
+                                <div class="divider"></div>
+
                                 Información:* <br>
-                                <textarea id="informacion" name="informacion" rows="5" cols="50"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." id="informacion" name="informacion" rows="5"></textarea> <br>
 
                                 Principales obras: <br>
-                                <textarea name="obras" id="obras" cols="50" rows="5"></textarea> <br>
+                                <textarea class="form-control" placeholder="Inserte texto aquí..." name="obras" id="obras" cols="50" rows="5"></textarea> <br>
 
+                                <div class="divider"></div>
+                                <div class="divider"></div>
                                 <input class="btn btn-primary" type="submit" name="subirArqui" value="Subir Personaje">
+                                <div class="divider"></div>
 
                             </form>
                         </div>
@@ -329,24 +373,25 @@
                         <div class="container-section shadow">
                             <h2>Subir Imagenes</h2> <br>
                             <div id="formularios">
-                                <button type="button" onclick="subirImagenes()">Subir imágenes</button> <br><br>
+                                <button class="btn btn-primary" type="button" onclick="subirImagenes()">Subir todas las imágenes</button> <br>
+                                <div class="divider"></div>
 
                                 <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen">
                                     <label for="imagen">Seleccione una imagen:*</label>
-                                    <input type="file" id="imagen" name="imagen"> <br>
+                                    <input class="upload-box" type="file" id="imagen" name="imagen"> <br> <br>
                                     Tipo:*
-                                    <select name="campoImagen" id="campoImagen" class="campoImagen">
+                                    <select class="form-control" name="campoImagen" id="campoImagen" class="campoImagen">
                                         <option value="">Selecione una opción.</option>
                                         <option value="1">Edificio</option>
                                         <option value="2">Espacio Urbano</option>
                                         <!-- <option value="3">Biografía</option> -->
                                     </select> <br>
                                     Obra:*
-                                    <select name="chus" id="chus" class="chus">
+                                    <select class="form-control" name="chus" id="chus" class="chus">
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     Sección:*
-                                    <select name="seccionObra" id="seccionObra" class="seccionObra">
+                                    <select class="form-control" name="seccionObra" id="seccionObra" class="seccionObra">
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     <br> <br>
@@ -357,58 +402,64 @@
                     </div>
 
                     <!-- ASOCIAR PERSONAJES CON OBRAS -->
-                    <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="importancia">
+                    <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="asociar">
                         <div class="container-section shadow">
                             <h2>Asociar personajes con obras</h2>
+                            <div class="divider"></div>
                             <div id="personObras">
-                                <button type="button" onclick="asociarPer()">Asociar personajes</button> <br><br>
+                                <button class="btn btn-primary" type="button" onclick="asociarPer()">Asociar personajes</button> <br>
+                                <div class="divider"></div>
                                 <form method="post" id="asociarPer">
                                     Personaje:
-                                    <select name="personajeChus" id="personajeChus" class="personajeChus">
+                                    <select name="personajeChus" id="personajeChus" class="form-control personajeChus">
                                         <?php 
                                             include("backend/get_Biografias.php");
                                         ?>
                                     </select> <br>
                                     Edificación:
-                                    <select name="edificioChus" id="edificioChus" class="edificioChus">
+                                    <select name="edificioChus" id="edificioChus" class="form-control edificioChus">
                                         <?php 
                                             include("backend/get_Edificios.php");
                                         ?>
                                     </select> <br>
                                     Espacio Urbano:
-                                    <select name="espacioChus" id="espacioChus" class="espacioChus">
+                                    <select name="espacioChus" id="espacioChus" class="form-control espacioChus">
                                         <?php 
                                             include("backend/get_Espacios.php");
                                         ?>
                                     </select> <br>
-                                </form> <br>
+                                    <br> <br>
+                                </form>
                             </div>
                             <button class="btn btn-primary" id="btnClonarAsoc">Añadir campos</button>
                         </div>
                     </div>
+
+                    <div class="divider"></div>
+
                 </div>
 
-                <div class="container col-lg-12 col-md-12 col-sm-12" style="background-color: #494d7e; margin:0px;">
-                    <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12" id="contacto">
-                        <a href="login.php">Login</a>
-                    </div> -->
-                    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
-                            <a href="login.php" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                                <i class="bi bi-buildings"></i>
-                                <span class="text-muted">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
-                            </a>
+                <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
+                <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
+                    <a href="login.php">Login</a>
+                </div> -->
+                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <a href="login.php" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                            <i class="bi bi-buildings"></i>
+                            <span class="" style="color: #fff;">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
+                        </a>
 
-                            <br>
-                        </div>
+                        <br>
+                    </div>
 
-                        <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                            <a href="" style="padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
-                            <a href="" style="padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
-                            <a href="" style="padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
-                        </div>
-                    </footer>
-                </div>
+                    <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
+                    </div>
+                </footer>
+            </div>
             </div>
 
         </div>
@@ -551,20 +602,20 @@
                 contador++;
                 let formulario = `
                     <form action="subir_imagenes.php" method="post" enctype="multipart/form-data" id="subirImagen${contador}">
-                        <label for="imagen${contador}">Seleccione una imagen:</label>
-                        <input type="file" id="imagen${contador}" name="imagen${contador}"> <br>
-                        Tipo:
-                        <select name="campoImagen${contador}" id="campoImagen${contador}" class="campoImagen">
+                        <label for="imagen${contador}">Seleccione una imagen:*</label>
+                        <input class="upload-box" type="file" id="imagen${contador}" name="imagen${contador}"> <br> <br>
+                        Tipo:*
+                        <select name="campoImagen${contador}" id="campoImagen${contador}" class="form-control campoImagen">
                             <option value="">Selecione una opción.</option>
                             <option value="1">Edificio</option>
                             <option value="2">Espacio Urbano</option>
                         </select> <br>
-                        Obra:
-                        <select name="chus${contador}" id="chus${contador}" class="chus">
+                        Obra:*
+                        <select name="chus${contador}" id="chus${contador}" class="form-control chus">
                             <option value="">Seleccione una opción.</option>
                         </select> <br>
-                        Sección:
-                        <select name="seccionObra${contador}" id="seccionObra${contador}" class="seccionObra">
+                        Sección:*
+                        <select name="seccionObra${contador}" id="seccionObra${contador}" class="form-control seccionObra">
                             <option value="">Seleccione una opción.</option>
                         </select> <br>
                         <br> <br>
@@ -577,27 +628,28 @@
                 contadorAsoc++;
                 let formularioAsoc = `
                     <form action="asociar_Personajes.php" method="post" id="asociarPer${contadorAsoc}">
-                        Personaje:
-                        <select name="personajeChus" id="personajeChus${contadorAsoc}" class="personajeChus">
+                        Personaje:*
+                        <select name="personajeChus" id="personajeChus${contadorAsoc}" class="form-control personajeChus">
                             <?php 
                                 include("backend/get_Biografias.php");
                             ?>
                         </select> <br>
                         Edificación:
-                        <select name="edificioChus" id="edificioChus${contadorAsoc}" class="edificioChus">
+                        <select name="edificioChus" id="edificioChus${contadorAsoc}" class="form-control edificioChus">
                             <?php 
                                 include("backend/get_Edificios.php");
                             ?>
                         </select> <br>
                         Espacio Urbano:
-                        <select name="espacioChus" id="espacioChus${contadorAsoc}" class="espacioChus">
+                        <select name="espacioChus" id="espacioChus${contadorAsoc}" class="form-control espacioChus">
                             <?php 
                                 include("backend/get_Espacios.php");
                             ?>
                         </select> <br>
-                    </form> <br>
+                        <br> <br>
+                        </form>
                 `;
-                $('#formulariosObrasPer').append(formularioAsoc);
+                $('#personObras').append(formularioAsoc);
             });
 
             $('#formularios').on('change', '.campoImagen', function() {
@@ -688,7 +740,7 @@
 
         function asociarPer() {
             // Obtener todos los formularios dentro del div con id "formularios"
-            var formulariosAsoc = document.querySelectorAll('#formulariosObrasPer form[id*="asociarPer"]');
+            var formulariosAsoc = document.querySelectorAll('#personObras form[id*="asociarPer"]');
             // Crear un array para almacenar todas las promesas generadas al enviar los formulariosAsoc
             var promesasEnvioAsoc = [];
 

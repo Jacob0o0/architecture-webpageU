@@ -24,10 +24,10 @@
 <body class="overflow-x-hidden">
 
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
-    <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #494d7e;">
+    <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1A1A1A;">
         
         <!-- NAVBAR -->
-        <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #494d7e;">
+        <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #F1E71E;">
             <nav class="navbar navbar-expand-lg navbar-light nav-bar-J">
                 <div class="container-fluid" style="margin-left: 0px; margin-right: 0px; padding: 0px">
                     <a class="navbar-brand" href="#"><i class="bi bi-building-fill"></i> Espacio Urbano</a>
@@ -79,9 +79,9 @@
         </div>
 
         <!-- Contenedor del lado derecho de la barra y normal en pantalla md y sm -->
-        <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
+        <div class="col-lg-10 col-md-12 col-sm-12" style="background-color: #1A1A1A; padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
 
-            <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #eef3fb;">
+            <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image"></div>
@@ -97,7 +97,7 @@
                             </div>
                             <div class="col-sm-12 col-md-6 col-lg-6" style="margin: 0;">
                                 
-                                <div class="container-texto">
+                                <div class="container-texto" style="margin: 0; width: 100%">
                                     <p>
                                         El siglo XIX es importante para México por  representar los primeros pasos como nación independiente y con ello, un tiempo de profundos cambios sociales, políticos y económicos. Un tiempo convulso, caracterizado por constantes luchas  y contiendas ideológicas en esa constante búsqueda por definir el rumbo del naciente país. El quehacer arquitectónico, sin duda  no escapa a todas estas transformaciones  y es el reflejo de la “cultura” de la época, con todo lo que ello significa.
                                     </p>
@@ -110,7 +110,7 @@
                                         Es un espacio formado por y para estudiantes de arquitectura, así como para profesores ,arquitectos y para todo aquel interesado en conocer las características  del espacio arquitectónico  de toda una época, bajo una premisa:  si conocemos nuestro pasado podremos valorarlo y solo así construir nuestro futuro.
                                     </p>
                                 </div>
-                                <div class="containersection" style="display: flex; align-items: flex-end; margin: 0; padding-right: 50px;">
+                                <div class="" style="display: flex; flex-direction: column; align-items: flex-end; margin: 0; padding-right: 50px;">
                                     <p class="caption-J"><em>Arq. Rosa Alejandra Guzmán Martínez</em></p>
                                     <p class="caption-J"><em>Profesora de la Facultad de Estudios Superiores Acatlán, UNAM</em></p>
                                     <p class="caption-J"><em>Arquitectura</em></p>
@@ -164,10 +164,14 @@
                         <div class="row" style="align-items: center;">
                             <?php 
                                 require 'backend/conexion.php';
-                                // Consulta para obtener los datos del edificio y su imagen
-                                $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
-                                INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
+                                // Consulta para obtener los datos del edificio, su imagen y el género
+                                $sql = "SELECT e.idEdificio, e.nombre, e.idGeneroEdif, g.nombreGenero, i.imagen FROM edificio e
+                                INNER JOIN generos g ON e.idGeneroEdif = g.idGenero
+                                INNER JOIN imagenesObras i ON i.idEdificio = e.idEdificio
                                 WHERE i.idSeccion = 'MN'";
+                                // $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
+                                // INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
+                                // WHERE i.idSeccion = 'MN'";
                     
                                 $resultado = $conexion->query($sql);
                     
@@ -176,9 +180,10 @@
                                     $idEdif = $filaEdif['idEdificio'];
                                     $nombreEdif = $filaEdif['nombre'];
                                     $imagenEdif = base64_encode($filaEdif['imagen']);
+                                    $nombreGenero = $filaEdif['nombreGenero'];
                     
                                     // Generar el card HTML con el nombre y la imagen del edificio
-                                    echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    echo '<div class="col-lg-4 col-md-6 col-md-6" category="'.$nombreGenero.'">';
                                     echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenEdif . '" class="card-img-top img-fluid" alt="' . $nombreEdif . '">';
                                     echo '<form action="edificios.php" method="post">';
@@ -218,10 +223,10 @@
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
                                     echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
-                                    echo '<form action="edificios.php" method="post">';
+                                    echo '<form action="biografias.php" method="post">';
                                     echo '<div class="card-body">';
                                     echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
-                                    echo '<input type="hidden" name="id_edificio" value="' . $idPersonaje . '">';
+                                    echo '<input type="hidden" name="id_biografia" value="' . $idPersonaje . '">';
                                     echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
                                     echo '</div>';
                                     echo '</form>';
@@ -234,7 +239,7 @@
                 </div>
             </div>
 
-            <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #494d7e; margin: 0px;" id="contacto">
+            <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
                 <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
                 </div> -->
@@ -242,16 +247,16 @@
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
                         <a href="login.php" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                             <i class="bi bi-buildings"></i>
-                            <span class="text-muted">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
+                            <span class="" style="color: #fff;">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
                         </a>
 
                         <br>
                     </div>
 
                     <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
                     </div>
                 </footer>
             </div>

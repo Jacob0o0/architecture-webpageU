@@ -70,6 +70,7 @@
     
             if ($conexion->query($sql)) {
                 echo "Valores guardados exitosamente.";
+                exit();
             } else {
                 echo "Error al guardar valores: " . $conexion->error;
             }
@@ -79,6 +80,7 @@
     
             if ($conexion->query($sql)) {
                 echo "Valores guardados exitosamente.";
+                exit();
             } else {
                 echo "Error al guardar valores: " . $conexion->error;
             }
@@ -88,6 +90,7 @@
     
             if ($conexion->query($sql)) {
                 echo "Valores guardados exitosamente.";
+                exit();
             } else {
                 echo "Error al guardar valores: " . $conexion->error;
             }

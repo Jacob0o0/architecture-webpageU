@@ -40,10 +40,10 @@
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
-    <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #494d7e;">
+    <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1a1a1a;">
 
         <!-- NAVBAR -->
-        <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #494d7e;">
+        <div class="col-lg-2 col-md-12 col-sm-12 w-100" style="padding-left: 0px; padding-right: 0px; background-color: #F1E71E;">
             <nav class="navbar navbar-expand-lg navbar-light nav-bar-J">
                 <div class="container-fluid" style="margin-left: 0px; margin-right: 0px; padding: 0px">
                     <a class="navbar-brand" href="#"><i class="bi bi-building-fill"></i> Espacio Urbano</a>
@@ -126,12 +126,12 @@
         <!-- Contenedor del lado derecho de la barra y normal en pantalla md y sm -->
         <div class="col-lg-10 col-md-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; margin: auto; display: flex; flex-direction: column; align-items: center;  border-radius: 20px;">
 
-            <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #eef3fb;">
+            <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image" style="background-image: url('data:<?php echo $tipoImagen; ?>;base64,<?php echo base64_encode($mainImagen); ?>')">
-                        <div class="">
-                            <h2><?php echo($filaEdificio['nombre']) ?></h2>
+                        <div class="main-title">
+                            <?php echo($filaEdificio['nombre']) ?>
                         </div>
                     </div>
                 </div>
@@ -251,7 +251,7 @@
 
             </div>
 
-            <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #494d7e; margin: 0px;" id="contacto">
+            <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
                 <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
                 </div> -->
@@ -259,16 +259,16 @@
                     <div class="col-md-4 d-flex align-items-center justify-content-center">
                         <a href="login.php" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
                             <i class="bi bi-buildings"></i>
-                            <span class="text-muted">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
+                            <span class="" style="color: #fff;">Espacio Arquitectónico y Urbano del Siglo XIX y Principios del Siglo XX - Arquitectura FES Acatlán</span>
                         </a>
 
                         <br>
                     </div>
 
                     <div class="nav col-md-4 justify-content-end list-unstyled d-flex">
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
-                        <a href="" style="padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-twitter" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-instagram" style="font-size: 30px;"></i></a>
+                        <a href="" style="color: #F1E71E; padding-right: 10px;"><i class="bi bi-facebook" style="font-size: 30px;"></i></a>
                     </div>
                 </footer>
             </div>

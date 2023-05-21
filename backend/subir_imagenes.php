@@ -80,6 +80,7 @@
 
         if (mysqli_query($conexion, $sql)) {
             echo "se subió la imagen";
+            exit();
         } else {
             echo '
             <script>
@@ -143,6 +144,7 @@
 
         if (mysqli_query($conexion, $sql)) {
             echo "se subió la imagen";
+            exit();
         } else {
             echo '
             <script>
