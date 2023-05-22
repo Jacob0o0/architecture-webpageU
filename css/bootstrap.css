@@ -506,6 +506,10 @@ mark,
   border-radius: 0.25rem;
   max-width: 100%;
   height: auto;
+
+  /* MINE */
+  width: 300px;
+  height: 300px;
 }
 
 .figure {

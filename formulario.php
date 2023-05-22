@@ -380,18 +380,18 @@
                                     <label for="imagen">Seleccione una imagen:*</label>
                                     <input class="upload-box" type="file" id="imagen" name="imagen"> <br> <br>
                                     Tipo:*
-                                    <select class="form-control" name="campoImagen" id="campoImagen" class="campoImagen">
+                                    <select name="campoImagen" id="campoImagen" class="form-control campoImagen">
                                         <option value="">Selecione una opción.</option>
                                         <option value="1">Edificio</option>
                                         <option value="2">Espacio Urbano</option>
                                         <!-- <option value="3">Biografía</option> -->
                                     </select> <br>
                                     Obra:*
-                                    <select class="form-control" name="chus" id="chus" class="chus">
+                                    <select name="chus" id="chus" class="form-control chus">
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     Sección:*
-                                    <select class="form-control" name="seccionObra" id="seccionObra" class="seccionObra">
+                                    <select name="seccionObra" id="seccionObra" class="form-control seccionObra">
                                         <option value="">Seleccione una opción.</option>
                                     </select> <br>
                                     <br> <br>
@@ -682,6 +682,7 @@
             var formularios = document.querySelectorAll('#formularios form[id*="subirImagen"]');
             // Crear un array para almacenar todas las promesas generadas al enviar los formularios
             var promesasEnvio = [];
+            var errorSubida = false; // Bandera para indicar si ocurrió un error de subida
 
             // Iterar sobre cada formulario
             formularios.forEach(function(formulario) {
@@ -714,27 +715,29 @@
                     body: formData
                 })
                 .then(function(response) {
-                    // Manejar la respuesta del servidor si es necesario
                     console.log(response);
                 })
                 .catch(function(error) {
-                    // Manejar cualquier error que ocurra
                     alert("Intentelo de nuevo");
+                    errorSubida = true; // Se establece la bandera en caso de error
                 });
 
-                // Agregar la promesa al array de promesas
                 promesasEnvio.push(promesaEnvio);
             });
 
-            // Esperar a que se resuelvan todas las promesas antes de mostrar el mensaje de éxito
             Promise.all(promesasEnvio)
             .then(function() {
-                alert('Todas las imágenes se subieron correctamente.');
-                window.location= "formulario.php";
+                if (!errorSubida) {
+                    alert('Todas las imágenes se subieron correctamente.');
+                    window.location = "formulario.php";
+                } else {
+                    alert('Error al subir todas las imágenes.');
+                    window.location = "formulario.php";
+                }
             })
             .catch(function(error) {
-                alert('Error al subir las imágenes.');
-                window.location= "formulario.php"
+                alert('Error al subir todas las imágenes.');
+                window.location = "formulario.php";
             });
         }
 

@@ -225,7 +225,47 @@
                             </p>
                         </div>
                         <h3>Plantas Arquitectónicas</h3>
+                        <div class="divider"></div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                                <?php 
+                                $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5B' AND idEdificio = $idEdificio";
+                                $result = $conexion->query($sql);
+                                
+                                // Mostrar las imágenes en el div
+                                
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                        echo '<img src="data:image/jpeg;base64,' . base64_encode($row['imagen']) . '" class="rounded img-thumbnail" alt="Imagen">';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    echo "No se encontraron imágenes.";
+                                }
+                                ?>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Fachadas y ornamentos</h3>
+                        <div class="divider"></div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                                <?php 
+                                $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5C' AND idEdificio = $idEdificio";
+                                $result = $conexion->query($sql);
+                                
+                                // Mostrar las imágenes en el div
+                                
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                        echo '<img src="data:image/jpeg;base64,' . base64_encode($row['imagen']) . '" class="rounded img-thumbnail img-fluid img-responsive" alt="Imagen">';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    echo "No se encontraron imágenes.";
+                                }
+                                ?>
+                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
@@ -268,6 +308,24 @@
                                 ?>
                             </p>
                         </div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                                <?php 
+                                $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '8X' AND idEdificio = $idEdificio";
+                                $result = $conexion->query($sql);
+                                
+                                // Mostrar las imágenes en el div
+                                
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                        echo '<img src="data:image/jpeg;base64,' . base64_encode($row['imagen']) . '" class="rounded img-thumbnail img-fluid img-responsive" alt="Imagen">';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    echo "No se encontraron imágenes.";
+                                }
+                                ?>
+                        </div>
                     </div>
                 </div>
 
@@ -281,6 +339,24 @@
                                     echo($texto_con_br);
                                 ?>
                             </p>
+                        </div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                                <?php 
+                                $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '9X' AND idEdificio = $idEdificio";
+                                $result = $conexion->query($sql);
+                                
+                                // Mostrar las imágenes en el div
+                                
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                        echo '<img src="data:image/jpeg;base64,' . base64_encode($row['imagen']) . '" class="rounded img-thumbnail img-fluid img-responsive" alt="Imagen">';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    echo "No se encontraron imágenes.";
+                                }
+                                ?>
                         </div>
                     </div>
                 </div>
