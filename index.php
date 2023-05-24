@@ -149,8 +149,9 @@
                                 require 'backend/conexion.php';
                                 // Consulta para obtener los datos del edificio y su imagen
                                 $sql = "SELECT e.id, e.espacioUrbNom, i.imagen FROM espacioUrbano e
-                                INNER JOIN imagenesObras i ON e.id = i.idEspacio
-                                WHERE i.idSeccion = 'MN'";
+                                        INNER JOIN imagenesObras i ON e.id = i.idEspacio
+                                        WHERE i.idSeccion = 'MN'
+                                        ORDER BY e.espacioUrbNom ASC";
                     
                                 $resultado = $conexion->query($sql);
                     
@@ -202,9 +203,10 @@
                                 require 'backend/conexion.php';
                                 // Consulta para obtener los datos del edificio, su imagen y el género
                                 $sql = "SELECT e.idEdificio, e.nombre, e.idGeneroEdif, g.nombreGenero, i.imagen FROM edificio e
-                                INNER JOIN generos g ON e.idGeneroEdif = g.idGenero
-                                INNER JOIN imagenesObras i ON i.idEdificio = e.idEdificio
-                                WHERE i.idSeccion = 'MN'";
+                                        INNER JOIN generos g ON e.idGeneroEdif = g.idGenero
+                                        INNER JOIN imagenesObras i ON i.idEdificio = e.idEdificio
+                                        WHERE i.idSeccion = 'MN'
+                                        ORDER BY e.nombre ASC";
                                 // $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
                                 // INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
                                 // WHERE i.idSeccion = 'MN'";
