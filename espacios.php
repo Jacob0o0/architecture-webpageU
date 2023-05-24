@@ -47,6 +47,9 @@
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
+    <div id="container-carga">
+        <div id="carga"></div>
+    </div>
     <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1a1a1a;">
 
         <!-- NAVBAR -->
@@ -129,6 +132,7 @@
 
             <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
+                <!-- MAIN IMAGE -->
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image" style="background-image: url('data:<?php echo $tipoImagen; ?>;base64,<?php echo base64_encode($mainImagen); ?>')">
                         <div class="main-title">
@@ -139,8 +143,10 @@
 
                 <div class="divider"></div>
 
+                <!-- GENERAL INFORMATION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="general">
                     <div class="container-section shadow">
+                        <div class="divider"></div>
                         <h3>Periodo en que se estableció: <?php $texto_con_br = nl2br(htmlspecialchars($filaEspacio['periodoConstruc'])); echo($texto_con_br);?></h3>
                         <h3>Función:</h3>
                         <div class="container-texto" style="padding-top: 0px;">
@@ -149,12 +155,15 @@
                                 echo($texto_con_br)
                             ?></p>
                         </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- ARCHITECTS INVOLVED -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="personajes">
                     <div class="container-section shadow">
-                        <h2>Personajes involucrados en la creación:</h2>
+                        <h2>Personaje(s) involucrado(s) en la creación:</h2>
+                        <div class="divider"></div>
                         <div class="row col-12" style="align-items: center; justify-content: center;">
                             <?php 
                                 require 'backend/conexion.php';
@@ -168,37 +177,59 @@
                     
                                 $resultado = $conexion->query($sql);
                     
-                                // Iterar sobre los resultados y generar un card HTML para cada personaje
-                                while ($filaPersonaje = $resultado->fetch_assoc()) {
-                                    $idPersonaje = $filaPersonaje['idPersonaje'];
-                                    $nombrePersonaje = $filaPersonaje['nomPer'];
-                                    $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
-                    
-                                    // Generar el card HTML con el nombre y la imagen del personaje
+                                if ($resultado->num_rows > 0) {
+                                    // Iterar sobre los resultados y generar un card HTML para cada personaje
+                                    while ($filaPersonaje = $resultado->fetch_assoc()) {
+                                        $idPersonaje = $filaPersonaje['idPersonaje'];
+                                        $nombrePersonaje = $filaPersonaje['nomPer'];
+                                        $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
+                        
+                                        // Generar el card HTML con el nombre y la imagen del personaje
+                                        echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                        echo '<div class="card shadow">';
+                                        echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
+                                        echo '<form action="biografias.php" method="post">';
+                                        echo '<div class="card-body">';
+                                        echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
+                                        echo '<input type="hidden" name="id_biografia" value="' . $idPersonaje . '">';
+                                        echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                        echo '</div>';
+                                        echo '</form>';
+                                        echo '</div>';
+                                        echo '</div>';
+                                    }
+                                } else {
+                                    // Generar el card HTML default
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
                                     echo '<div class="card shadow">';
-                                    echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
-                                    echo '<form action="biografias.php" method="post">';
+                                    echo '<img src="assets/images/empty-person.png" class="card-img-top img-fluid" alt="Sin datos">';
                                     echo '<div class="card-body">';
-                                    echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
-                                    echo '<input type="hidden" name="id_biografia" value="' . $idPersonaje . '">';
-                                    echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                    echo '<h5 class="card-title">Sin personaje(s) asociado(s)</h5>';
+                                    echo '<input type="hidden" name="id_biografia" value="0">';
                                     echo '</div>';
-                                    echo '</form>';
                                     echo '</div>';
                                     echo '</div>';
                                 }
                             ?>
                         </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- UBICATION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="ubicacion">
                     <div class="container-section shadow">
                         <h2>Ubicación</h2>
+                        <div class="divider"></div>
+                        
+                        <div class="ubi-default">
+                        </div>
+
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- CONTEXTO HISTÓRICO -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="contextoH">
                     <div class="container-section shadow">
                         <h2>Contexto Histórico</h2>
@@ -208,78 +239,423 @@
                                 echo($texto_con_br)
                             ?></p>
                         </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- DESCRIPCION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="descripcion">
                     <div class="container-section shadow">
                         <h2>Descripción del proyecto original</h2>
+                        <div class="divider"></div>
                         <h3>Plan urbanístico o política urbana:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['planUrbanistico']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['planUrbanistico'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['planUrbanistico']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
                         <h3>Características particulares:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['caracteristicas']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['caracteristicas'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['caracteristicas']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5B' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Orientación:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['orientacion']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['orientacion'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['orientacion']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5C' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Dimensiones:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['dimensiones']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['dimensiones'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['dimensiones']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5D' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Secciones:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['secciones']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['secciones'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['secciones']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5E' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Elementos de la imagen urbana:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['elementos']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['elementos'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['elementos']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5F' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                         <h3>Tipos de edificaciones que rodean al espacio:</h3>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaDescrip['tiposEdifRodeando']));
-                                    echo($texto_con_br);
+                                    if ($filaDescrip['tiposEdifRodeando'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaDescrip['tiposEdifRodeando']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '5G' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- TRANSFORMACIONES -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="transform">
                     <div class="container-section shadow">
                         <h2>Transformaciones del espacio</h2>
@@ -291,9 +667,62 @@
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '6X' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- PRINCIPIOS DE DISEÑO -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="diseño">
                     <div class="container-section shadow">
                         <h2>Principios de diseño</h2>
@@ -305,26 +734,85 @@
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-11" style="align-items: center; justify-content: center;">
+                            <div id="imagenes-CorrienteEst" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <?php
+                                    $sql = "SELECT imagen FROM imagenesObras WHERE idSeccion = '7X' AND idEspacio = $idEspacio";
+                                    $result = $conexion->query($sql);
+    
+                                    $numImages = $result->num_rows;
+    
+                                    for ($i = 0; $i < $numImages; $i++) {
+                                        if ($i == 0) {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '" class="active"></li>';
+                                        } else {
+                                            echo '<li data-target="#imagenes-CorrienteEst" data-slide-to="' . $i . '"></li>';
+                                        }
+                                    }
+                                    ?>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php
+                                    if ($result->num_rows > 0) {
+                                        $active = true;
+                                        while ($row = $result->fetch_assoc()) {
+                                            $image = base64_encode($row['imagen']);
+                                            if ($active) {
+                                                echo '<div class="carousel-item active">';
+                                                $active = false;
+                                            } else {
+                                                echo '<div class="carousel-item">';
+                                            }
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '</div>';
+                                        }
+                                    } else {
+                                        echo '<div class="carousel-item">';
+                                        echo 'No se encontraron imágenes.';
+                                        echo '</div>';
+                                    }
+                                    ?>
+                                </div>
+                                <a class="carousel-control-prev" href="#imagenes-CorrienteEst" role="button" data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Anterior</span>
+                                </a>
+                                <a class="carousel-control-next" href="#imagenes-CorrienteEst" role="button" data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Siguiente</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- IMPORTANCIA -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="importancia">
                     <div class="container-section shadow">
                         <h2>Importancia del espacio urbano</h2>
                         <div class="container-texto">
                             <p>
                                 <?php 
-                                    $texto_con_br = nl2br(htmlspecialchars($filaEspacio['importancia']));
-                                    echo($texto_con_br);
+                                    if ($filaEspacio['importancia'] === "") {
+                                        echo 'Sin información encontrada.';
+                                    } else {
+                                        $texto_con_br = nl2br(htmlspecialchars($filaEspacio['importancia']));
+                                        echo($texto_con_br);
+                                    }
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
                 <div class="divider"></div>
 
             </div>
 
+            <!-- FOOTER -->
             <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
                 <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
@@ -356,6 +844,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/scroll-active.js"></script>
     <script src="js/scrollreveal.js"></script>
+    <script src="js/carga.js"></script>
 
     <script>
         $(document).ready(function() {

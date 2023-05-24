@@ -6276,6 +6276,13 @@ a.close.disabled {
 
 .carousel {
   position: relative;
+
+  /* MINE */
+  width: 70%; 
+  overflow: hidden; 
+  border: 5px solid #F1E71E; 
+  border-radius: 20px; 
+  background-color: #1a1a1a;
 }
 
 .carousel.pointer-event {
@@ -10107,6 +10114,41 @@ a.text-dark:hover, a.text-dark:focus {
 
 /* THIS IS MINE */
 
+#container-carga {
+  background-color: #1A1A1A;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  -webkit-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+  z-index: 100000;
+}
+
+#carga {
+  border: 15px solid #fff;
+  border-top-color: #F1E71E;
+  border-top-style: groove;
+  height: 100px;
+  width: 100px;
+  border-radius: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  -webkit-animation: girar 1.5s linear infinite;
+  -o-animation: girar 1.5s linear infinite;
+  animation: girar 1.5s linear infinite;
+}
+
+@keyframes girar {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+
 .nav-bar-J {
   /* background-color: #4abdac; */
   /* background-color: #c69fa5; */
@@ -10168,7 +10210,7 @@ a.text-dark:hover, a.text-dark:focus {
   margin-left: auto;
 
   /* MINE */
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 20px;
   padding: 30px 20px 30px 20px;
   display: flex;
@@ -10198,6 +10240,25 @@ a.text-dark:hover, a.text-dark:focus {
   background-position: center center;
   display: flex;
   min-height: 250px;
+}
+
+.ubi-default {
+    /* background-color: #fc4a1a; */
+    background-color: #d8d7d7;
+    background-image: url(../assets/images/staticmap.png);
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+  
+    margin: 0;
+    height: 25vw;
+    width: 70%;
+    border: 5px solid #F1E71E;
+    border-radius: 10px;
+    align-items: flex-end;
+    text-align: center;
+    align-content: center;
+    justify-content: center;
 }
 
 .sub-container {
@@ -10315,6 +10376,12 @@ a.text-dark:hover, a.text-dark:focus {
 
 ::-webkit-file-upload-button:hover {
   background: #0069d9;
+}
+
+@media (max-width: 992px) {
+  .card-img-top {
+    height: 35vh;
+  }
 }
 
 @media (min-width: 992px) {
