@@ -1,2 +1,3 @@
-# architecture-webpageU
-This is the repo for the final project. Is a full stack project in progress.
+# Web Page "Espacios Arquitectónicos"
+
+This is a full stack project made with XAMPP.
