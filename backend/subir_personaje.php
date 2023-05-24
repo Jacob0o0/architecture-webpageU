@@ -46,8 +46,8 @@ if (isset($_POST['subirArqui'])){
     if(mysqli_query($conexion, $sql)) {
         // YA SE SUBIÓ EL PERSONAJE
 
-        $getIDpersonaje = mysqli_query($conexion, "SELECT*FROM personaje WHERE nomPer='$nombre' ");
-                
+        $getIDpersonaje = mysqli_query($conexion, "SELECT*FROM personaje WHERE nomPer='$nombre' AND apellido='$apellidoUno'");
+
         $filaPer = $getIDpersonaje->fetch_assoc();
         $idPersonaje = $filaPer['idPersonaje'];
 

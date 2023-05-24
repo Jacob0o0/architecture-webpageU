@@ -15,6 +15,9 @@
         <main>
 
             <div class="contenedor__todo">
+                <div id="container-carga">
+                    <div id="carga"></div>
+                </div>
                 <div class="caja__trasera">
                     <div class="caja__trasera-login">
                         <h3>¿Ya tienes una cuenta?</h3>
@@ -53,5 +56,6 @@
         </main>
 
         <script src="assets/js/script.js"></script>
+        <script src="js/carga.js"></script>
 </body>
 </html>

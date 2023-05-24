@@ -50,6 +50,9 @@
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
+    <div id="container-carga">
+        <div id="carga"></div>
+    </div>
     <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1a1a1a;">
 
         <!-- NAVBAR -->
@@ -103,6 +106,7 @@
 
             <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
+                <!-- MAIN IMAGE -->
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image" style="background-image: url('data:<?php echo $tipoImagen; ?>;base64,<?php echo base64_encode($mainImagen); ?>')">
                         <div class="main-title">
@@ -115,15 +119,24 @@
 
                 <div class="divider"></div>
 
+                <!-- GENERAL INFORMATION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="datos">
                     <div class="container-section shadow">
-                        <h3> Fecha de Nacimiento: <?php echo($filaPersonaje['fechaNac'])?><br></h3>
+                        <div class="divider"></div>
+                        <h3> Fecha de Nacimiento: 
+                            <?php 
+                                if($filaPersonaje['fechaNac'] === "0000-00-00"){
+                                    echo 'Desconocido';
+                                } else {
+                                    echo($filaPersonaje['fechaNac']);
+                                }
+                            ?><br></h3>
                         <h3> País de Origen: <?php echo($filaPais['nombre'])?><br></h3>
-                        <div>
-                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- RELEVANT INFORMATION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="infoPer">
                     <div class="container-section shadow">
                         <h2>Información</h2>
@@ -133,9 +146,11 @@
                                 echo($texto_con_br)
                             ?></p>
                         </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
 
+                <!-- OBRAS -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="obrasPrin">
                     <div class="container-section shadow">
                         <h2>Obras Principales</h2>
@@ -147,12 +162,108 @@
                                 ?>
                             </p>
                         </div>
+                        <div class="divider"></div>
+                        <div class="row col-12" style="align-items: center; justify-content: center;">
+                            <?php 
+                                require 'backend/conexion.php';
+                                // Consulta para obtener los datos del personaje y su imagen
+                                // Sentencia SQL para obtener los personajes con idEspacio 3
+                                $sql = "SELECT * FROM arquitectosObras WHERE idPersonaje = '$idPersonaje'";
+                    
+                                $resultado = $conexion->query($sql);
+
+                                // Verificar si se encontraron registros
+                                if (mysqli_num_rows($resultado) > 0) {
+                                    // Recorrer los resultados
+                                    while ($fila = mysqli_fetch_assoc($resultado)) {
+                                        // Verificar si idEdificio es nulo
+                                        if ($fila['idEdificio'] === null) {
+                                            // Código a ejecutar si idEdificio es nulo
+                                            $idEspacioAsoc = $fila['idEspacio'];
+
+                                            $sql = "SELECT e.id, e.espacioUrbNom, i.imagen FROM espacioUrbano e
+                                            INNER JOIN imagenesObras i ON e.id = i.idEspacio
+                                            WHERE i.idSeccion = 'MN' AND e.id = '$idEspacioAsoc'";
+
+                                            $espacios = $conexion->query($sql);
+
+                                            // Iterar sobre los resultados y generar un card HTML para cada espacio
+                                            while ($filaEspacio = $espacios->fetch_assoc()) {
+                                                $idEspacio = $filaEspacio['id'];
+                                                $nombreEspacio = $filaEspacio['espacioUrbNom'];
+                                                $imagenEspacio = base64_encode($filaEspacio['imagen']);
+
+                                                // Generar el card HTML con el nombre y la imagen del espacio
+                                                echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                                echo '<div class="card shadow">';
+                                                echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
+                                                echo '<form action="espacios.php" method="post">';
+                                                echo '<div class="card-body">';
+                                                echo '<h5 class="card-title">' . $nombreEspacio . '</h5>';
+                                                echo '<input type="hidden" name="id_espacio" value="' . $idEspacio . '">';
+                                                echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                                echo '</div>';
+                                                echo '</form>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                            }
+                                        }
+
+                                        // Verificar si idEspacio es nulo
+                                        if ($fila['idEspacio'] === null) {
+                                            // Código a ejecutar si idEspacio es nulo
+                                            $idEdificioAsoc = $fila['idEdificio'];
+
+                                            $sql = "SELECT e.idEdificio, e.nombre, i.imagen FROM edificio e
+                                            INNER JOIN imagenesObras i ON e.idEdificio = i.idEdificio
+                                            WHERE i.idSeccion = 'MN' AND e.idEdificio = '$idEdificioAsoc'";
+
+                                            $edificio = $conexion->query($sql);
+
+                                            // Iterar sobre los resultados y generar un card HTML para cada espacio
+                                            while ($filaEdificio = $edificio->fetch_assoc()) {
+                                                $idEdificio = $filaEdificio['idEdificio'];
+                                                $nombreEdificio = $filaEdificio['nombre'];
+                                                $imagenEdificio = base64_encode($filaEdificio['imagen']);
+
+                                                // Generar el card HTML con el nombre y la imagen del espacio
+                                                echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                                echo '<div class="card shadow">';
+                                                echo '<img src="data:image/jpeg;base64,' . $imagenEdificio . '" class="card-img-top img-fluid" alt="' . $nombreEdificio . '">';
+                                                echo '<form action="espacios.php" method="post">';
+                                                echo '<div class="card-body">';
+                                                echo '<h5 class="card-title">' . $nombreEdificio . '</h5>';
+                                                echo '<input type="hidden" name="id_espacio" value="' . $idEdificio . '">';
+                                                echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
+                                                echo '</div>';
+                                                echo '</form>';
+                                                echo '</div>';
+                                                echo '</div>';
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    // // Generar el card HTML default
+                                    // echo '<div class="col-lg-4 col-md-6 col-md-6">';
+                                    // echo '<div class="card shadow">';
+                                    // echo '<img src="assets/images/default-building.png" class="card-img-top img-fluid" alt="Sin datos">';
+                                    // echo '<div class="card-body">';
+                                    // echo '<h5 class="card-title">Sin obras(s) asociado(s)</h5>';
+                                    // echo '<input type="hidden" name="id_biografia" value="0">';
+                                    // echo '</div>';
+                                    // echo '</div>';
+                                    // echo '</div>';
+                                }
+                            ?>
+                        </div>
+                        <div class="divider"></div>
                     </div>
                 </div>
                 <div class="divider"></div>
 
             </div>
 
+            <!-- FOOTER -->
             <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
                 <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
@@ -184,6 +295,7 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/scroll-active.js"></script>
     <script src="js/scrollreveal.js"></script>
+    <script src="js/carga.js"></script>
 
     <script>
         $(document).ready(function() {

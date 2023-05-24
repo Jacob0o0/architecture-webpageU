@@ -32,6 +32,9 @@
 <body class="overflow-x-hidden">
 
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
+    <div id="container-carga">
+        <div id="carga"></div>
+    </div>
     <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1A1A1A;">
         
         <!-- NAVBAR -->
@@ -91,12 +94,14 @@
 
             <div class="" style="padding-left: 0px; padding-right: 0px; margin: 0px; display: flex; flex-direction: column; align-items: center; border-radius: 20px; width: 100%; background-color: #fff;">
 
+                <!-- MAIN IMAGE -->
                 <div class="col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="top">
                     <div class="main-image"></div>
                 </div>
 
                 <div class="divider"></div>
-        
+
+                <!-- GENERAL INFORMATION -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="info">
                     <div class="container-section shadow">
                         <h2>Información</h2>
@@ -135,6 +140,7 @@
                     </div>
                 </div>
                 
+                <!-- ESPACIOS URBANOS -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px; text-align: center;" id="espacios">
                     <div class="container-section shadow">
                         <h2>Espacios Urbanos</h2>
@@ -148,13 +154,13 @@
                     
                                 $resultado = $conexion->query($sql);
                     
-                                // Iterar sobre los resultados y generar un card HTML para cada edificio
+                                // Iterar sobre los resultados y generar un card HTML para cada espacio
                                 while ($filaEspacio = $resultado->fetch_assoc()) {
                                     $idEspacio = $filaEspacio['id'];
                                     $nombreEspacio = $filaEspacio['espacioUrbNom'];
                                     $imagenEspacio = base64_encode($filaEspacio['imagen']);
                     
-                                    // Generar el card HTML con el nombre y la imagen del edificio
+                                    // Generar el card HTML con el nombre y la imagen del espacio
                                     echo '<div class="col-lg-4 col-md-6 col-md-6">';
                                     echo '<div class="card shadow">';
                                     echo '<img src="data:image/jpeg;base64,' . $imagenEspacio . '" class="card-img-top img-fluid" alt="' . $nombreEspacio . '">';
@@ -172,7 +178,8 @@
                         </div>
                     </div>
                 </div>
-        
+
+                <!-- EDIFICIOS -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="edificios">
                     <div class="container-section shadow">
                         <h2>Edificios</h2>
@@ -229,7 +236,8 @@
                         </div>
                     </div>
                 </div>
-        
+
+                <!-- BIOGRAFIAS -->
                 <div class="col-lg-11 col-md-11 col-sm-11 seccion_Pag" style="padding-left: 0px; padding-right: 0px;" id="biografias">
                     <div class="container-section shadow">
                         <h2>Biografias</h2>
@@ -237,8 +245,9 @@
                             <?php 
                                 require 'backend/conexion.php';
                                 // Consulta para obtener los datos del personaje y su imagen
-                                $sql = "SELECT p.idPersonaje, p.nomPer, i.imagen FROM personaje p
-                                INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje";
+                                $sql = "SELECT p.idPersonaje, p.nomPer, p.apellido, i.imagen FROM personaje p
+                                        INNER JOIN imagenesBiografias i ON p.idPersonaje = i.idPersonaje
+                                        ORDER BY p.nomPer ASC";
                     
                                 $resultado = $conexion->query($sql);
                     
@@ -246,6 +255,7 @@
                                 while ($filaPersonaje = $resultado->fetch_assoc()) {
                                     $idPersonaje = $filaPersonaje['idPersonaje'];
                                     $nombrePersonaje = $filaPersonaje['nomPer'];
+                                    $apellidoPersonaje = $filaPersonaje['apellido'];
                                     $imagenPersonaje = base64_encode($filaPersonaje['imagen']);
                     
                                     // Generar el card HTML con el nombre y la imagen del personaje
@@ -254,7 +264,7 @@
                                     echo '<img src="data:image/jpeg;base64,' . $imagenPersonaje . '" class="card-img-top img-fluid" alt="' . $nombrePersonaje . '">';
                                     echo '<form action="biografias.php" method="post">';
                                     echo '<div class="card-body">';
-                                    echo '<h5 class="card-title">' . $nombrePersonaje . '</h5>';
+                                    echo '<h5 class="card-title">' . $nombrePersonaje . ' ' . $apellidoPersonaje .'</h5>';
                                     echo '<input type="hidden" name="id_biografia" value="' . $idPersonaje . '">';
                                     echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
                                     echo '</div>';
@@ -269,6 +279,7 @@
                 <div class="divider"></div>
             </div>
 
+            <!-- FOOTER -->
             <div class="container col-lg-12 col-md-12 col-sm-12 seccion_Pag" style="background-color: #1A1A1A; margin: 0px;" id="contacto">
                 <!-- <div class="footer footer-J col-10-lg col-md-12 col-sm-12">
                     <a href="login.php">Login</a>
@@ -301,6 +312,7 @@
     <script src="js/scroll-active.js"></script>
     <script src="js/filtros.js"></script>
     <script src="js/scrollreveal.js"></script>
+    <script src="js/carga.js"></script>
 
     <script>
         $(document).ready(function() {

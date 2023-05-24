@@ -24,6 +24,9 @@
 <body class="overflow-x-hidden">
 
     <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
+        <div id="container-carga">
+            <div id="carga"></div>
+        </div>
         <div class="row col-12" style="padding-left: 0px; padding-right: 0px; margin-left: 0px; margin-left: 0px; background-color: #1a1a1a;">
 
             <!-- NAVBAR -->
@@ -470,6 +473,7 @@
     <script src="js/bootstrap.bundle.js"></script>
     <script src="js/bootstrap.js"></script>
     <script src="js/scroll-active.js"></script>
+    <script src="js/carga.js"></script>
 
     <script>
         function getMunicipios(estadoId) {
