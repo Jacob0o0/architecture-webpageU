@@ -1,4 +1,4 @@
-window.onload = function() {
+$(document).ready(function(){
     let section = document.querySelectorAll('.seccion_Pag')
     let lists = document.querySelectorAll('.nav-item');
     
@@ -26,4 +26,4 @@ window.onload = function() {
             }
         });
     });
-}
+});
