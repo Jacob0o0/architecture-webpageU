@@ -194,7 +194,7 @@
                                 <a href="" class="category-item" category="Exposiciones">Exposiciones</a>
                                 <a href="" class="category-item" category="Educación">Educación</a>
                                 <a href="" class="category-item" category="Iglesias">Iglesias</a>
-                                <a href="" class="category-item" category="Gobierno">Gobiero</a>
+                                <a href="" class="category-item" category="Gobierno">Gobierno</a>
                             </div>
                         </div>
                         <div class="divider"></div>

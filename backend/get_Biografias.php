@@ -8,7 +8,7 @@ $biografias = mysqli_query($conexion, "SELECT * FROM personaje");
 $options = '<option value="">Seleccione una opción.</option>';
 if (mysqli_num_rows($biografias) > 0) {
     while ($fila = mysqli_fetch_assoc($biografias)) {
-        $options .= "<option value='" . $fila["idPersonaje"] . "'>" . $fila["nomPer"] . "</option>";
+        $options .= "<option value='" . $fila["idPersonaje"] . "'>" . $fila["nomPer"]. " " . $fila["apellido"] . "</option>";
     }
 } else {
     $options = "<option value=''>No hay edificios disponibles.</option>";

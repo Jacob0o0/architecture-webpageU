@@ -316,7 +316,7 @@
                                             } else {
                                                 echo '<div class="carousel-item">';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
                                             echo '</div>';
                                         }
                                     } else {
@@ -371,7 +371,7 @@
                                             } else {
                                                 echo '<div class="carousel-item">';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
                                             echo '</div>';
                                         }
                                     } else {
@@ -446,7 +446,7 @@
                                             } else {
                                                 echo '<div class="carousel-item">';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
                                             echo '</div>';
                                         }
                                     } else {
@@ -518,7 +518,7 @@
                                             } else {
                                                 echo '<div class="carousel-item">';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
                                             echo '</div>';
                                         }
                                     } else {
@@ -604,13 +604,15 @@
                                         while ($row = $result->fetch_assoc()) {
                                             $image = base64_encode($row['imagen']);
                                             if ($active) {
-                                                echo '<div class="carousel-item active">';
+                                                echo '<div class="carousel-item active" id="imagen-carrusel">';
+                                                echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100 img-carrusel" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
+                                                echo '</div>';
                                                 $active = false;
                                             } else {
-                                                echo '<div class="carousel-item">';
+                                                echo '<div class="carousel-item" id="imagen-carrusel">';
+                                                echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100 img-carrusel" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
+                                                echo '</div>';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
-                                            echo '</div>';
                                         }
                                     } else {
                                         echo '<div class="carousel-item">';
@@ -700,7 +702,7 @@
                                             } else {
                                                 echo '<div class="carousel-item">';
                                             }
-                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;">';
+                                            echo '<img src="data:image/jpeg;base64,' . $image . '" class="d-block w-100" alt="Imagen" style="object-fit: contain; max-height: 500px;" id="imagen">';
                                             echo '</div>';
                                         }
                                     } else {
@@ -760,6 +762,7 @@
     <script src="js/scroll-active.js"></script>
     <script src="js/scrollreveal.js"></script>
     <script src="js/carga.js"></script>
+    <script src="js/zoom.js"></script>
 
     <script>
         $(document).ready(function() {
