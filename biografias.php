@@ -45,8 +45,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollToPlugin.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
     
-    <title><?php echo($filaPersonaje['nomPer']) ?></title>
-    <title><?php echo($filaPersonaje['apellido']) ?></title>
+    <title><?php echo($filaPersonaje['nomPer'] . " " . $filaPersonaje['apellido']) ?></title>
 </head>
 <body>
 <div class="container col-12" style="padding-left: 0px; padding-right: 0px;">
@@ -230,10 +229,10 @@
                                                 echo '<div class="col-lg-4 col-md-6 col-md-6">';
                                                 echo '<div class="card shadow">';
                                                 echo '<img src="data:image/jpeg;base64,' . $imagenEdificio . '" class="card-img-top img-fluid" alt="' . $nombreEdificio . '">';
-                                                echo '<form action="espacios.php" method="post">';
+                                                echo '<form action="edificios.php" method="post">';
                                                 echo '<div class="card-body">';
                                                 echo '<h5 class="card-title">' . $nombreEdificio . '</h5>';
-                                                echo '<input type="hidden" name="id_espacio" value="' . $idEdificio . '">';
+                                                echo '<input type="hidden" name="id_edificio" value="' . $idEdificio . '">';
                                                 echo '<button type="submit" class="btn btn-primary">Ver detalles</button>';
                                                 echo '</div>';
                                                 echo '</form>';
